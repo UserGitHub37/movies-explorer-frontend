@@ -2,13 +2,14 @@ import { Link } from 'react-router-dom';
 import logoPath from '../../images/header-logo.svg';
 
 import './Header.css';
+import ContainerWrapper from '../common/ContainerWrapper/ContainerWrapper';
 
 function Header ({ isSiteNavActive = false }) {
 
   return (
     <header className='header'>
 
-      <div className='container-wrapper container-wrapper__color_dark-blue'>
+      <ContainerWrapper className={'container-wrapper__color_dark-blue'}>
         <div className='main-header'>
           <div className='main-header__logo-wrapper'>
             <Link to='/' className='main-header__logo-link'>
@@ -35,9 +36,9 @@ function Header ({ isSiteNavActive = false }) {
             <h1 className="header-banner__title">Учебный проект студента факультета Веб-разработки.</h1>
           </div>
         </div>
-      </div>
+      </ContainerWrapper>
 
-      <div className='container-wrapper container-wrapper__color_grey'>
+      <ContainerWrapper className={'container-wrapper__color_grey'}>
         <nav className='main-page-nav'>
           <ul className="main-page-nav__links">
             <li className="main-page-nav__item-link"><Link to='#' className='main-page-nav__link'>О проекте</Link></li>
@@ -45,7 +46,7 @@ function Header ({ isSiteNavActive = false }) {
             <li className="main-page-nav__item-link"><Link to='#' className='main-page-nav__link'>Студент</Link></li>
           </ul>
         </nav>
-      </div>
+        </ContainerWrapper>
 
     </header>
   );
