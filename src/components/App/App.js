@@ -1,10 +1,34 @@
+import { useState, useEffect } from 'react';
+import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+
+import Header from '../Header/Header';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <>
+            <Header>
 
-    </div>
+            </Header>
+          </>
+        }
+      />
+
+      <Route
+        path="/movies"
+        element={
+          <>
+            <Header isSiteNavActive={true}>
+
+            </Header>
+          </>
+        }
+      />
+    </Routes>
   );
 }
 
