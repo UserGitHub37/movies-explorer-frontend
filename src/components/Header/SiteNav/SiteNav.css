@@ -1,0 +1,25 @@
+.site-nav__links {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 16px;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.site-nav__link {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  /* identical to box height, or 138% */
+  color: #fff;
+  text-decoration: none;
+}
+
+.site-nav__link_active {
+  font-weight: 500;
+  font-size: 13px;
+}
