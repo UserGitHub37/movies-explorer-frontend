@@ -1,0 +1,119 @@
+.about-project__container {
+  min-width: 320px;
+  max-width: 1280px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 70px 18px 58px;
+}
+
+.about-project__description-cards {
+  display: grid;
+  row-gap: 56px;
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .about-project__description-cards {
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 30px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .about-project__description-cards {
+    column-gap: 40px;
+  }
+}
+
+.about-project__title {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  /* identical to box height */
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin: 0;
+}
+
+.about-project__description-card-title {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin: 0;
+}
+
+.about-project__description-card-paragraph {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 16px;
+  /* or 145% */
+  color: #fff;
+  margin: 0;
+}
+
+.about-project__timing {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 100px 1fr;
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.about-project__timing-card {
+  display: grid;
+  grid-template-rows: repeat(2, 35px);
+}
+
+.about-project__timing-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-project__timing-wrapper {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+}
+
+.about-project__timing-wrapper_color-green {
+  background-color: #3DDC84;
+  color: #000000;
+}
+
+.about-project__timing-wrapper_color-grey {
+  background-color: #303030;
+  color: #fff;
+}
+
+
+.about-project__timing-term {
+  text-align: center;
+  margin: 0;
+}
+
+.about-project__timing-task {
+  font-family: 'Suisse Intl';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  /* identical to box height */
+  text-align: center;
+  color: #A0A0A0;
+  margin: 0;
+}

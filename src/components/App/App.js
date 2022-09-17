@@ -9,6 +9,7 @@ import SiteNav from '../Header/SiteNav/SiteNav';
 import AuthNav from '../Header/AuthNav/AuthNav';
 import HeaderBanner from '../Header/HeaderBanner/HeaderBanner';
 import MainPageNav from '../Header/MainPageNav/MainPageNav';
+import AboutProject from '../Main/AboutProject/AboutProject';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
                 <MainPageNav/>
               </ContainerWrapper>
             </Header>
+            <AboutProject/>
           </>
         }
       />

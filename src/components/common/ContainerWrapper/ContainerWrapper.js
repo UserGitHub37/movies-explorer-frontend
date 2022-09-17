@@ -1,7 +1,8 @@
 import './ContainerWrapper.css';
 
 function ContainerWrapper ({ className, children }) {
-  const finalClassName = `container-wrapper ${className}`;
+  let finalClassName = 'container-wrapper';
+  if (className) finalClassName += ` ${className}`;
   return (
     <div className={finalClassName}>{children}</div>
   );
