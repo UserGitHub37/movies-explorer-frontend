@@ -8,6 +8,7 @@ function AboutProject () {
       <ContainerWrapper className={'container-wrapper__color_black'}>
         <div className="about-project__container">
           <h2 className="about-project__title">О проекте</h2>
+          <div className="about-project__line"></div>
           <ul className="about-project__description-cards">
             <li className="about-project__description-card">
               <h3 className="about-project__description-card-title">Дипломный проект включал 5 этапов</h3>
@@ -40,7 +41,6 @@ function AboutProject () {
               </div>
             </li>
           </ul>
-
         </div>
       </ContainerWrapper>
     </section>

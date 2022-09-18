@@ -10,7 +10,7 @@
   display: grid;
   row-gap: 56px;
   list-style: none;
-  margin: 0;
+  margin: 0 0 60px;
   padding-left: 0;
 }
 
@@ -29,32 +29,30 @@
 }
 
 .about-project__title {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   /* identical to box height */
   letter-spacing: -0.04em;
   color: #fff;
-  margin: 0;
+  margin: 0 0 28px;
+}
+
+.about-project__line {
+  width: 100%;
+  height: 1px;
+  margin-bottom: 60px;
+  background: #DADADA;
 }
 
 .about-project__description-card-title {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   letter-spacing: -0.04em;
   color: #fff;
-  margin: 0;
+  margin: 0 0 16px;
 }
 
 .about-project__description-card-paragraph {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
   font-size: 11px;
   line-height: 16px;
   /* or 145% */
@@ -83,9 +81,6 @@
 }
 
 .about-project__timing-wrapper {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
   font-size: 11px;
   line-height: 13px;
 }
@@ -107,9 +102,7 @@
 }
 
 .about-project__timing-task {
-  font-family: 'Suisse Intl';
-  font-style: normal;
-  font-weight: 400;
+  font-family: 'Suisse Intl, 'Arial', sans-serif';
   font-size: 11px;
   line-height: 13px;
   /* identical to box height */

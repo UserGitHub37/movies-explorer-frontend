@@ -25,12 +25,11 @@
 }
 
 .main-page-nav__link {
-  font-family: 'Inter';
-  font-style: normal;
   font-weight: 500;
   font-size: 11px;
   line-height: 16px;
   /* identical to box height, or 145% */
+  vertical-align: middle;
   color: #fff;
 }
 

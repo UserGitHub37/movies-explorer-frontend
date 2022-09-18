@@ -56,9 +56,6 @@
 
 .header-banner__title {
   margin: 0;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
   font-size: 31px;
   line-height: 39px;
   /* or 126% */
