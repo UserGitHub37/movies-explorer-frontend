@@ -12,6 +12,12 @@
   }
 }
 
+@media screen and (min-width: 1024px) {
+  .about-project__container {
+    padding: 110px 70px 65px;
+  }
+}
+
 .about-project__title {
   font-size: 18px;
   line-height: 22px;
@@ -62,6 +68,7 @@
 @media screen and (min-width: 1024px) {
   .about-project__description-cards {
     column-gap: 40px;
+    margin-bottom: 110px;
   }
 }
 
@@ -78,6 +85,12 @@
     font-size: 20px;
     line-height: 24px;
     margin-bottom: 22px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .about-project__description-card-title {
+    margin-bottom: 26px;
   }
 }
 
