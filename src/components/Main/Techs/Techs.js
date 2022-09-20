@@ -5,7 +5,7 @@ import './Techs.css';
 function Techs () {
   return (
     <section className="techs">
-      <ContainerWrapper className={"container-wrapper__color_black"}>
+      <ContainerWrapper className={"techs__container-wrapper"}>
         <div className="techs__container">
           <h2 className="techs__title">Технологии</h2>
           <div className="techs__line"></div>
