@@ -55,16 +55,33 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  width: calc(100vw - 60px);
   list-style: none;
   margin: 0 auto;
   padding-left: 0;
 }
 
+@media screen and (min-width: 768px) {
+  .techs__cards-wrapper {
+    width: 100%;
+  }
+}
+
 .techs__card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: #303030;
+  height: 100%;
   border-radius: 10px;
 }
 
 .techs__card-item {
-  text-align: center;
+  font-size: 12px;
+  line-height: 15px;
+  /* identical to box height */
+  letter-spacing: -0.04em;
+  margin: 0;
+  color: #fff;
 }
