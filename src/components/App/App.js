@@ -11,6 +11,7 @@ import HeaderBanner from '../Header/HeaderBanner/HeaderBanner';
 import MainPageNav from '../Header/MainPageNav/MainPageNav';
 import AboutProject from '../Main/AboutProject/AboutProject';
 import Techs from '../Main/Techs/Techs';
+import AboutMe from '../Main/AboutMe/AboutMe';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             </Header>
             <AboutProject/>
             <Techs/>
+            <AboutMe/>
           </>
         }
       />

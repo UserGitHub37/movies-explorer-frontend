@@ -106,7 +106,7 @@
     line-height: 18px;
     /* or 150% */
     max-width: 460px;
-    margin-bottom: 83px;
+    margin-bottom: 84px;
   }
 }
 
@@ -152,9 +152,6 @@
   background: #303030;
   height: 100%;
   border-radius: 10px;
-}
-
-.techs__card-item {
   font-size: 12px;
   line-height: 15px;
   /* identical to box height */
@@ -164,7 +161,7 @@
 }
 
 @media screen and (min-width: 1024px) {
-  .techs__card-item {
+  .techs__card {
     font-size: 14px;
     line-height: 17px;
     /* identical to box height */
