@@ -3,11 +3,13 @@
   max-width: 1280px;
   width: 100%;
   box-sizing: border-box;
-  padding: 70px 14px;
+  padding: 70px 14px 35px;
 }
 
 @media screen and (min-width: 768px) {
-
+  .about-me__container {
+    padding: 90px 50px 45px;
+  }
 }
 
 .about-me__heading {
@@ -19,15 +21,37 @@
   margin: 0 0 28px;
 }
 
+@media screen and (min-width: 768px) {
+  .about-me__heading {
+    font-size: 22px;
+    line-height: 27px;
+    margin-bottom: 23px;
+  }
+}
+
 .about-me__line {
   height: 1px;
   background-color: #DADADA;
   margin-bottom: 60px;
 }
 
+@media screen and (min-width: 768px) {
+  .about-me__line {
+    margin-bottom: 66px;
+  }
+}
+
 .about-me__card {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  justify-items: center;
+}
+
+@media screen and (min-width: 544px) {
+  .about-me__card {
+    grid-template-columns: 1fr auto;
+    column-gap: 49px;
+    grid-template-areas: "a b";
+  }
 }
 
 .about-me__ava {
@@ -39,7 +63,34 @@
   margin-bottom: 40px;
 }
 
-.about-me__description {
+@media screen and (min-width: 544px) {
+  .about-me__ava {
+    grid-area: b;
+    width: 255px;
+    height: 307px;
+    margin-bottom: 0;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .about-me__ava {
+
+  }
+}
+
+.about-me__description-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media screen and (min-width: 544px) {
+  .about-me__description-wrapper {
+    grid-area: a;
+  }
+}
+
+.about-me__inner-description-wrapper {
 
 }
 
@@ -51,6 +102,15 @@
   margin: 0 0 20px;
 }
 
+@media screen and (min-width: 544px) {
+  .about-me__title {
+    font-size: 40px;
+    line-height: 40px;
+    /* identical to box height, or 100% */
+    margin-bottom: 16px;
+  }
+}
+
 .about-me__subtitle {
   font-weight: 500;
   font-size: 11px;
@@ -58,6 +118,14 @@
   /* identical to box height, or 145% */
   color: #fff;
   margin: 0 0 20px;
+}
+
+@media screen and (min-width: 544px) {
+  .about-me__subtitle {
+    font-size: 12px;
+    line-height: 18px;
+    /* identical to box height, or 150% */
+  }
 }
 
 .about-me__paragraph {
@@ -68,6 +136,14 @@
   color: #fff;
   mix-blend-mode: normal;
   margin: 0 0 40px;
+}
+
+@media screen and (min-width: 544px) {
+  .about-me__paragraph {
+    font-size: 12px;
+    line-height: 18px;
+    /* or 150% */
+  }
 }
 
 .about-me__link {
