@@ -1,0 +1,80 @@
+.about-me__container {
+  min-width: 320px;
+  max-width: 1280px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 70px 14px;
+}
+
+@media screen and (min-width: 768px) {
+
+}
+
+.about-me__heading {
+  font-size: 18px;
+  line-height: 22px;
+  /* identical to box height */
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin: 0 0 28px;
+}
+
+.about-me__line {
+  height: 1px;
+  background-color: #DADADA;
+  margin-bottom: 60px;
+}
+
+.about-me__card {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-me__ava {
+  width: 292px;
+  height: 352px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+  margin-bottom: 40px;
+}
+
+.about-me__description {
+
+}
+
+.about-me__title {
+  font-size: 30px;
+  line-height: 36px;
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin: 0 0 20px;
+}
+
+.about-me__subtitle {
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 16px;
+  /* identical to box height, or 145% */
+  color: #fff;
+  margin: 0 0 20px;
+}
+
+.about-me__paragraph {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 16px;
+  /* or 145% */
+  color: #fff;
+  mix-blend-mode: normal;
+  margin: 0 0 40px;
+}
+
+.about-me__link {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+  color: #fff;
+  text-decoration: none;
+}
