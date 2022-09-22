@@ -14,7 +14,7 @@
 
 @media screen and (min-width: 1024px) {
   .portfolio__container {
-    padding: 51px 70px 125px;
+    padding: 36px 70px 125px;
   }
 }
 
@@ -73,6 +73,12 @@
   }
 }
 
+@media screen and (min-width: 1024px) {
+  .portfolio__link {
+    font-size: 30px;
+  }
+}
+
 .portfolio__arrow {
   width: 11px;
   height: 11px;
@@ -84,5 +90,12 @@
     width: 16px;
     height: 16px;
     margin-right: 6px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .portfolio__arrow {
+    width: 18px;
+    height: 17px;
   }
 }
