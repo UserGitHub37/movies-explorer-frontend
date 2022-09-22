@@ -13,6 +13,7 @@ import AboutProject from '../Main/AboutProject/AboutProject';
 import Techs from '../Main/Techs/Techs';
 import AboutMe from '../Main/AboutMe/AboutMe';
 import Portfolio from '../Main/Portfolio/Portfolio';
+import Footer from '../Footer/Footer';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Techs/>
             <AboutMe/>
             <Portfolio/>
+            <Footer/>
           </>
         }
       />
