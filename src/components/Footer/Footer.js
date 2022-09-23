@@ -23,7 +23,7 @@ function Footer () {
                 </a>
               </li>
             </ul>
-            <p className="footer__copyright">© 2020</p>
+            <p className="footer__copyright">© 2022</p>
           </div>
         </div>
       </ContainerWrapper>

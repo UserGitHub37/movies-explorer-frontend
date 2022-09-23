@@ -54,6 +54,7 @@ function App() {
                 </MainHeader>
               </ContainerWrapper>
             </Header>
+            <Footer/>
           </>
         }
       />
@@ -70,6 +71,7 @@ function App() {
                 </MainHeader>
               </ContainerWrapper>
             </Header>
+            <Footer/>
           </>
         }
       />
