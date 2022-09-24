@@ -50,7 +50,6 @@ function App() {
             <ContainerWrapper className={'container-wrapper__color_dark-blue'}>
                 <MainHeader>
                   <SiteNav/>
-                  <AuthNav/>
                 </MainHeader>
               </ContainerWrapper>
             </Header>

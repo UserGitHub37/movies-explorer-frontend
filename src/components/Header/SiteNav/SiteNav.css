@@ -1,3 +1,13 @@
+.site-nav {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .site-nav {
+    display: block;
+  }
+}
+
 .site-nav__links {
   display: grid;
   grid-auto-flow: column;
@@ -6,6 +16,12 @@
   list-style: none;
   margin: 0;
   padding-left: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .site-nav__item-link:first-child {
+    display: none;
+  }
 }
 
 .site-nav__link {
@@ -19,4 +35,42 @@
 .site-nav__link_active {
   font-weight: 500;
   font-size: 13px;
+}
+
+.account-btn {
+  display: none;
+  align-items: center;
+  justify-content: space-evenly;
+  border: none;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  width: 100px;
+  height: 32px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  align-items: center;
+  color: #fff;
+  border: 2px solid rgba(170, 170, 170, 0.2);
+  border-radius: 50px;
+}
+
+@media screen and (min-width: 768px) {
+  .account-btn {
+    display: flex;
+  }
+}
+
+.burger-btn {
+  border: none;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .burger-btn {
+    display: none;
+  }
 }
