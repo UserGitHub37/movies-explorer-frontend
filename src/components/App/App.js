@@ -14,6 +14,7 @@ import Techs from '../Main/Techs/Techs';
 import AboutMe from '../Main/AboutMe/AboutMe';
 import Portfolio from '../Main/Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
+import SearchForm from '../Movies/SearchForm/SearchForm';
 
 function App() {
   return (
@@ -53,6 +54,9 @@ function App() {
                 </MainHeader>
               </ContainerWrapper>
             </Header>
+            <ContainerWrapper className={'container-wrapper__color_black'}>
+              <SearchForm/>
+            </ContainerWrapper>
             <Footer/>
           </>
         }
