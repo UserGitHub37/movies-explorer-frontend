@@ -3,23 +3,105 @@
   max-width: 1280px;
   width: 100%;
   box-sizing: border-box;
-  padding: 70px 70px 27px;
+  padding: 70px 14px 64px;
+}
+
+.search-form__input-fieldset {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 56px;
+  padding: 0 4.5px;
+  margin: 0 0 30px;
+  border: 1.5px solid rgba(170, 170, 170, 0.2);
+  border-radius: 8px;
 }
 
 .search-form__input {
-  height: 72px;
-  /* width: 100%; */
+  box-sizing: border-box;
+  padding: 0 6px;
+  margin-right: 6px;
+  border: 0;
+  width: calc(100% - 80px);
+  height: 44px;
+  background-color: inherit;
+  font-size: 16px;
+  line-height: 16px;
+  color: #8B8B8B;
+}
+
+.search-form__input:focus {
+  outline: none;
+  border: 1px solid yellow;
+  border-radius: 5px;
 }
 
 .search-form__submit-btn {
   border: none;
   padding: 0;
+  box-sizing: border-box;
+  width: 80px;
+  height: 44px;
   background-color: #4285F4;
   border-radius: 5px;
   cursor: pointer;
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
-  text-align: center;
   color: #fff;
+}
+
+.search-form__checkbox-fieldset {
+  padding: 0 0 63px;
+  margin: 0 0 10px;
+  border: none;
+  border-bottom: 1px solid rgba(170, 170, 170, 0.2);
+}
+
+.search-form__checkbox-label {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+
+.search-form__checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.search-form__pseudo-item {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #343434;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.search-form__pseudo-item:before {
+  position: absolute;
+  background-color: #A0A0A0;
+  content: "";
+  top: 2px;
+  left: 2px;
+  transition: .4s;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.search-form__checkbox:checked + .search-form__pseudo-item:before {
+  background-color: #2BE080;
+  transform: translateX(16px);
+}
+
+.search-form__label-text {
+  font-size: 11px;
+  line-height: 18px;
+  color: #fff;
+  margin-left: 49px;
 }
