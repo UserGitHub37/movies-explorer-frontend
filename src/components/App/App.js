@@ -15,6 +15,7 @@ import AboutMe from '../Main/AboutMe/AboutMe';
 import Portfolio from '../Main/Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 import SearchForm from '../Movies/SearchForm/SearchForm';
+import Preloader from '../Movies/Preloader/Preloader';
 
 function App() {
   return (
@@ -57,6 +58,9 @@ function App() {
             <ContainerWrapper className={'container-wrapper__color_black'}>
               <SearchForm/>
             </ContainerWrapper>
+            <ContainerWrapper className={'container-wrapper__color_black'}>
+              <Preloader isActive={ false } />
+              </ContainerWrapper>
             <Footer/>
           </>
         }
