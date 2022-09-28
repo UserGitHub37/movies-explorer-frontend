@@ -16,6 +16,7 @@ import Portfolio from '../Main/Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 import SearchForm from '../Movies/SearchForm/SearchForm';
 import Preloader from '../Movies/Preloader/Preloader';
+import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
 
 function App() {
   return (
@@ -60,7 +61,8 @@ function App() {
             </ContainerWrapper>
             <ContainerWrapper className={'container-wrapper__color_black'}>
               <Preloader isActive={ false } />
-              </ContainerWrapper>
+              <MoviesCardList/>
+            </ContainerWrapper>
             <Footer/>
           </>
         }

@@ -3,18 +3,18 @@
   max-width: 1280px;
   width: 100%;
   box-sizing: border-box;
-  padding: 70px 14px 64px;
+  padding: 70px 14px 10px;
 }
 
 @media screen and (min-width: 768px) {
   .search-form {
-    padding: 70px 30px 64px;
+    padding: 70px 30px 10px;
   }
 }
 
 @media screen and (min-width: 768px) {
   .search-form {
-    padding: 70px 70px 64px;
+    padding: 70px 70px 10px;
   }
 }
 
@@ -91,7 +91,7 @@
 
 .search-form__checkbox-fieldset {
   padding: 0 0 63px;
-  margin: 0 0 10px;
+  margin: 0;
   border: none;
   border-bottom: 1px solid rgba(170, 170, 170, 0.2);
 }
