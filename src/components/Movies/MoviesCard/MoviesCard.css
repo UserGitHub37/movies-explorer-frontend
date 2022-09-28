@@ -11,6 +11,12 @@
   object-fit: contain;
 }
 
+@media screen and (min-width: 630px) {
+  .card__image {
+    height: calc((100vw - 30px - 30px - 30px) / 2 / 1.786);
+  }
+}
+
 .card__caption-wrapper {
   display: flex;
   justify-content: space-between;
