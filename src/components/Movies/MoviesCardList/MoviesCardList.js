@@ -27,7 +27,6 @@ function MoviesCardList () {
     }
   }, [width])
 
-
   return (
     <section className="card-list" aria-label="Фильмы">
       <ul className="card-list__wrapper">
