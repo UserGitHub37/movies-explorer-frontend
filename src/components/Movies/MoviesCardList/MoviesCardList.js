@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { cards } from '../../../utils/movies'
 import useViewport from '../../../hooks/useViewport';
-import './MoviesCardList.css';
 import Card from '../MoviesCard/MoviesCard';
+import './MoviesCardList.css';
 
-function MoviesCardList () {
+function MoviesCardList ({ isMoreButton = false }) {
   const { width } = useViewport();
 
   const [numberOfCards, setNumberOfCards] = useState(5);
@@ -16,15 +16,18 @@ function MoviesCardList () {
       lg: 1280,
     };
 
-    if (width < breakpoint.sm) {
+    if (width < breakpoint.sm && cards.length >= 5) {
       setNumberOfCards(5);
-    } else if (width < breakpoint.md) {
+    } else if (width < breakpoint.md && cards.length >= 8) {
       setNumberOfCards(8);
-    } else if (width < breakpoint.lg) {
+    } else if (width < breakpoint.lg && cards.length >= 12) {
       setNumberOfCards(12);
-    } else {
+    } else if (width >= breakpoint.lg && cards.length >= 16){
       setNumberOfCards(16);
+    } else {
+      setNumberOfCards(cards.length);
     }
+
   }, [width])
 
   return (
@@ -37,7 +40,7 @@ function MoviesCardList () {
           />
         ))}
       </ul>
-      <button className="card-list__more-button">Ещё</button>
+      {isMoreButton && <button className="card-list__more-button">Ещё</button>}
     </section>
   );
 }

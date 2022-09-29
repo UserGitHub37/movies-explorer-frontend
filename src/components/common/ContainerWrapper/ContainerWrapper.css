@@ -15,3 +15,7 @@
 .container-wrapper__color_black {
   background-color: #202020;
 }
+
+.container-wrapper__type_grow {
+  flex-grow: 1;
+}

@@ -26,21 +26,23 @@ function App() {
         element={
           <>
             <Header>
-              <ContainerWrapper className={'container-wrapper__color_dark-blue'}>
+              <ContainerWrapper
+                className={"container-wrapper__color_dark-blue"}
+              >
                 <MainHeader>
-                  <AuthNav/>
+                  <AuthNav />
                 </MainHeader>
-                <HeaderBanner/>
+                <HeaderBanner />
               </ContainerWrapper>
-              <ContainerWrapper className={'container-wrapper__color_grey'}>
-                <MainPageNav/>
+              <ContainerWrapper className={"container-wrapper__color_grey"}>
+                <MainPageNav />
               </ContainerWrapper>
             </Header>
-            <AboutProject/>
-            <Techs/>
-            <AboutMe/>
-            <Portfolio/>
-            <Footer/>
+            <AboutProject />
+            <Techs />
+            <AboutMe />
+            <Portfolio />
+            <Footer />
           </>
         }
       />
@@ -50,20 +52,22 @@ function App() {
         element={
           <>
             <Header>
-            <ContainerWrapper className={'container-wrapper__color_dark-blue'}>
+              <ContainerWrapper
+                className={"container-wrapper__color_dark-blue"}
+              >
                 <MainHeader>
-                  <SiteNav/>
+                  <SiteNav />
                 </MainHeader>
               </ContainerWrapper>
             </Header>
-            <ContainerWrapper className={'container-wrapper__color_black'}>
-              <SearchForm/>
+            <ContainerWrapper className={"container-wrapper__color_black"}>
+              <SearchForm />
             </ContainerWrapper>
-            <ContainerWrapper className={'container-wrapper__color_black'}>
-              <Preloader isActive={ false } />
-              <MoviesCardList/>
+            <ContainerWrapper className={"container-wrapper__color_black"}>
+              <Preloader isActive={false} />
+              <MoviesCardList isMoreButton={true} />
             </ContainerWrapper>
-            <Footer/>
+            <Footer />
           </>
         }
       />
@@ -73,18 +77,29 @@ function App() {
         element={
           <>
             <Header>
-            <ContainerWrapper className={'container-wrapper__color_dark-blue'}>
+              <ContainerWrapper
+                className={"container-wrapper__color_dark-blue"}
+              >
                 <MainHeader>
-                  <SiteNav/>
-                  <AuthNav/>
+                  <SiteNav />
                 </MainHeader>
               </ContainerWrapper>
             </Header>
-            <Footer/>
+            <ContainerWrapper className={"container-wrapper__color_black"}>
+              <SearchForm />
+            </ContainerWrapper>
+            <ContainerWrapper
+              className={
+                "container-wrapper__color_black container-wrapper__type_grow"
+              }
+            >
+              <Preloader isActive={false} />
+              <MoviesCardList />
+            </ContainerWrapper>
+            <Footer />
           </>
         }
       />
-
     </Routes>
   );
 }
