@@ -14,9 +14,9 @@ import Techs from '../Main/Techs/Techs';
 import AboutMe from '../Main/AboutMe/AboutMe';
 import Portfolio from '../Main/Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
-import SearchForm from '../Movies/SearchForm/SearchForm';
-import Preloader from '../Movies/Preloader/Preloader';
-import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
+import SearchForm from '../common/SearchForm/SearchForm';
+import Preloader from '../common/Preloader/Preloader';
+import MoviesCardList from '../common/MoviesCardList/MoviesCardList';
 
 function App() {
   return (
