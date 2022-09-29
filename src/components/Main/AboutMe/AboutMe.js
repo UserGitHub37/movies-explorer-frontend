@@ -9,7 +9,7 @@ function AboutMe () {
     <section className="about-me">
       <ContainerWrapper className={'container-wrapper__color_black'}>
         <div className="about-me__container">
-          <h2 className="about-me__heading">Студент</h2>
+          <h2 className="about-me__heading" id="student">Студент</h2>
           <div className="about-me__line"></div>
           <div className="about-me__card">
             <img src={avaPath} alt="Фото студента" className="about-me__ava" />

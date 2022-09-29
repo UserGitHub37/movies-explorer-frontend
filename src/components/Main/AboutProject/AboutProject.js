@@ -7,7 +7,7 @@ function AboutProject () {
     <section className="about-project">
       <ContainerWrapper className={'container-wrapper__color_black'}>
         <div className="about-project__container">
-          <h2 className="about-project__title">О проекте</h2>
+          <h2 className="about-project__title" id="project">О проекте</h2>
           <div className="about-project__line"></div>
           <ul className="about-project__description-cards">
             <li className="about-project__description-card">
