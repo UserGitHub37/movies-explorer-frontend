@@ -18,18 +18,16 @@
   padding-left: 0;
 }
 
-@media screen and (min-width: 1024px) {
-  .site-nav__item-link:first-child {
-    display: none;
-  }
-}
-
 .site-nav__link {
   font-size: 13px;
   line-height: 18px;
-  /* identical to box height, or 138% */
   color: #fff;
   text-decoration: none;
+  transition: opacity .2s ease;
+}
+
+.site-nav__link:hover {
+  opacity: 0.7;
 }
 
 .site-nav__link_active {
@@ -37,7 +35,7 @@
   font-size: 13px;
 }
 
-.account-btn {
+.site-nav__acc-btn {
   display: none;
   align-items: center;
   justify-content: space-evenly;
@@ -54,10 +52,15 @@
   color: #fff;
   border: 2px solid rgba(170, 170, 170, 0.2);
   border-radius: 50px;
+  transition: opacity .2s ease;
+}
+
+.site-nav__acc-btn:hover {
+  opacity: 0.7;
 }
 
 @media screen and (min-width: 1024px) {
-  .account-btn {
+  .site-nav__acc-btn {
     display: flex;
   }
 }
@@ -67,6 +70,11 @@
   padding: 0;
   background: transparent;
   cursor: pointer;
+  transition: opacity .2s ease;
+}
+
+.burger-btn:hover {
+  opacity: 0.7;
 }
 
 @media screen and (min-width: 1024px) {

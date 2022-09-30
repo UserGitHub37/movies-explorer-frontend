@@ -80,6 +80,11 @@
   font-size: 14px;
   line-height: 18px;
   color: #fff;
+  transition: opacity .2s ease;
+}
+
+.search-form__submit-btn:hover {
+  opacity: 0.8;
 }
 
 @media screen and (min-width: 768px) {
@@ -154,6 +159,12 @@
   line-height: 18px;
   color: #fff;
   margin-left: 49px;
+  cursor: pointer;
+  transition: opacity .2s ease;
+}
+
+.search-form__label-text:hover {
+  opacity: 0.7;
 }
 
 @media screen and (min-width: 768px) {
