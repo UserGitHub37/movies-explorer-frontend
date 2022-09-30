@@ -16,12 +16,26 @@ function SiteNav ({ setMenuIsOpen, onAccBtnClick }) {
       <nav className="site-nav">
         <ul className="site-nav__links">
           <li className="site-nav__item-link">
-            <NavLink to="/movies" className={({ isActive }) => isActive ? "site-nav__link site-nav__link_active" : "site-nav__link"}>
+            <NavLink
+              to="/movies"
+              className={({ isActive }) =>
+                isActive
+                  ? "site-nav__link site-nav__link_active"
+                  : "site-nav__link"
+              }
+            >
               Фильмы
             </NavLink>
           </li>
           <li className="site-nav__item-link">
-            <NavLink to="/saved-movies" className={({ isActive }) => isActive ? "site-nav__link site-nav__link_active" : "site-nav__link"}>
+            <NavLink
+              to="/saved-movies"
+              className={({ isActive }) =>
+                isActive
+                  ? "site-nav__link site-nav__link_active"
+                  : "site-nav__link"
+              }
+            >
               Сохраненные фильмы
             </NavLink>
           </li>
