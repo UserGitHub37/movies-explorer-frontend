@@ -4,19 +4,20 @@
   grid-template-rows: repeat(2, min-content) auto min-content;
   width: 100%;
   min-width: 320px;
-  max-width: 396px;
-  box-sizing: border-box;
+  max-width: 456px;
   min-height: 100vh;
   height: 100%;
   box-sizing: border-box;
   padding: 56px 30px 30px;
 
-  /* background-color: black; */
+  background-color: black;
 }
 
 @media screen and (min-width: 768px) {
   .register {
-
+    grid-template-rows: repeat(4, min-content);
+    align-content: center;
+    padding: 30px;
   }
 }
 
@@ -28,6 +29,7 @@
 @media screen and (min-width: 768px) {
   .register__logo-link {
     justify-self: flex-start;
+    margin-bottom: 37px;
   }
 }
 
@@ -47,6 +49,7 @@
 @media screen and (min-width: 768px) {
   .register__title {
     text-align: start;
+    margin-bottom: 40px;
   }
 }
 
@@ -56,12 +59,25 @@
   margin-bottom: 14px;
 }
 
+@media screen and (min-width: 768px) {
+  .register__form {
+    margin-bottom: 16px;
+  }
+}
+
 .register__fieldset {
   box-sizing: border-box;
   margin: 0 0 20px;
   padding: 0;
   border-width: 0;
   flex-grow: 1;
+}
+
+@media screen and (min-width: 768px) {
+  .register__fieldset {
+    flex-grow: 0;
+    margin-bottom: 70px;
+  }
 }
 
 .register__input-label {
@@ -116,12 +132,26 @@
   color: #FFF;
 }
 
+@media screen and (min-width: 768px) {
+  .register__submit-button {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
 .register__footnote {
   justify-self: center;
   margin: 0;
   font-size: 12px;
   line-height: 15px;
   color: #8B8B8B;
+}
+
+@media screen and (min-width: 768px) {
+  .register__footnote {
+    font-size: 14px;
+    line-height: 17px;
+  }
 }
 
 .register__footnote-link {
