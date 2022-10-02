@@ -14,6 +14,7 @@ import Footer from '../Footer/Footer';
 import SearchForm from '../common/SearchForm/SearchForm';
 import Preloader from '../common/Preloader/Preloader';
 import MoviesCardList from '../common/MoviesCardList/MoviesCardList';
+import Register from '../Register/Register';
 
 function App() {
   return (
@@ -71,6 +72,14 @@ function App() {
           </>
         }
       />
+
+      <Route
+        path="/signup"
+        element={
+          <Register />
+        }
+      />
+
     </Routes>
   );
 }
