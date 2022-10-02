@@ -69,7 +69,7 @@ function Register () {
                 value={name ? name : ""}
                 onChange={handleChangeName}
               />
-              <span className="register__error-message register-name-input-error">Что-то пошло не так...</span>
+              <span className="register__error-message register-name-input-error"></span>
             </label>
             <label className="register__input-label">
               <p className="register__subtitle">E-mail</p>
@@ -85,7 +85,7 @@ function Register () {
                 value={email ? email : ""}
                 onChange={handleChangeEmail}
               />
-              <span className="register__error-message register-email-input-error">Что-то пошло не так...</span>
+              <span className="register__error-message register-email-input-error"></span>
             </label>
             <label className="register__input-label">
               <p className="register__subtitle">Пароль</p>
@@ -104,11 +104,11 @@ function Register () {
               <span className="register__error-message register-password-input-error">Что-то пошло не так...</span>
             </label>
           </fieldset>
-          <button type="submit" className="register__submit-button">
+          <button type="submit" className="register__submit-btn">
             Зарегистрироваться
           </button>
         </form>
-        <p className="register__footnote">Уже зарегистрированы? <Link to="/signin" className="register__footnote-link">Войти</Link></p>
+        <p className="register__footnote">Уже зарегистрированы?&ensp;<Link to="/signin" className="register__footnote-link">Войти</Link></p>
       </div>
     </ContainerWrapper>
   );
