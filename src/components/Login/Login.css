@@ -1,4 +1,4 @@
-.register {
+.login {
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: repeat(2, min-content) auto min-content;
@@ -12,7 +12,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .register {
+  .login {
     /* grid-template-rows: repeat(4, min-content); */
     grid-template-rows: repeat(2, min-content) minmax(auto, 395px) min-content;
     align-content: center;
@@ -20,24 +20,24 @@
   }
 }
 
-.register__logo-link {
+.login__logo-link {
   justify-self: center;
   margin-bottom: 47px;
   transition: opacity .2s ease;
 }
 
-.register__logo-link:hover {
+.login__logo-link:hover {
   opacity: 0.7;
 }
 
 @media screen and (min-width: 768px) {
-  .register__logo-link {
+  .login__logo-link {
     justify-self: flex-start;
     margin-bottom: 37px;
   }
 }
 
-.register__title {
+.login__title {
   text-align: center;
   font-weight: 500;
   font-size: 24px;
@@ -47,25 +47,25 @@
 }
 
 @media screen and (min-width: 768px) {
-  .register__title {
+  .login__title {
     text-align: start;
     margin-bottom: 40px;
   }
 }
 
-.register__form {
+.login__form {
   display: flex;
   flex-direction: column;
   margin-bottom: 14px;
 }
 
 @media screen and (min-width: 768px) {
-  .register__form {
+  .login__form {
     margin-bottom: 16px;
   }
 }
 
-.register__fieldset {
+.login__fieldset {
   box-sizing: border-box;
   margin: 0 0 20px;
   padding: 0;
@@ -74,20 +74,19 @@
 }
 
 @media screen and (min-width: 768px) {
-  .register__fieldset {
-    /* flex-grow: 0; */
+  .login__fieldset {
     margin-bottom: 70px;
   }
 }
 
-.register__subtitle {
+.login__subtitle {
   font-size: 10px;
   line-height: 12px;
   color: #8B8B8B;
   margin: 0 0 10px;
 }
 
-.register__input {
+.login__input {
   display: block;
   font-size: 13px;
   line-height: 16px;
@@ -102,11 +101,11 @@
   border-radius: 8px;
 }
 
-.register__input_type_error {
+.login__input_type_error {
   color: #EE3465;
 }
 
-.register__error-message {
+.login__error-message {
   display: block;
   font-size: 10px;
   line-height: 11px;
@@ -114,7 +113,7 @@
   color: #EE3465;
 }
 
-.register__submit-btn {
+.login__submit-btn {
   display: block;
   border: none;
   padding: 0;
@@ -130,18 +129,18 @@
   transition: opacity .2s ease;
 }
 
-.register__submit-btn:hover {
+.login__submit-btn:hover {
   opacity: 0.8;
 }
 
 @media screen and (min-width: 768px) {
-  .register__submit-btn {
+  .login__submit-btn {
     font-size: 14px;
     line-height: 17px;
   }
 }
 
-.register__footnote {
+.login__footnote {
   justify-self: center;
   margin: 0;
   font-size: 12px;
@@ -150,18 +149,18 @@
 }
 
 @media screen and (min-width: 768px) {
-  .register__footnote {
+  .login__footnote {
     font-size: 14px;
     line-height: 17px;
   }
 }
 
-.register__footnote-link {
+.login__footnote-link {
   color: #4285F4;
   text-decoration: none;
   transition: opacity .2s ease;
 }
 
-.register__footnote-link:hover {
+.login__footnote-link:hover {
   opacity: 0.7;
 }

@@ -32,10 +32,9 @@ function Register () {
     setPassword(e.target.value);
   }
 
-
   function onSubmit (e) {
     e.preventDefault();
-    navigate('/movies');
+    navigate('/signin');
   }
 
   return (

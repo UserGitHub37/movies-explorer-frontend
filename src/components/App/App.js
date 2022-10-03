@@ -15,6 +15,7 @@ import SearchForm from '../common/SearchForm/SearchForm';
 import Preloader from '../common/Preloader/Preloader';
 import MoviesCardList from '../common/MoviesCardList/MoviesCardList';
 import Register from '../Register/Register';
+import Login from '../Login/Login';
 
 function App() {
   return (
@@ -77,6 +78,13 @@ function App() {
         path="/signup"
         element={
           <Register />
+        }
+      />
+
+      <Route
+        path="/signin"
+        element={
+          <Login />
         }
       />
 
