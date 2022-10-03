@@ -6,7 +6,7 @@ function AuthNav () {
   return (
     <nav className='auth-nav'>
       <Link to='/signup' className='auth-nav__link'>Регистрация</Link>
-      <button className='auth-nav__button'>Войти</button>
+      <button className='auth-nav__btn'>Войти</button>
     </nav>
   );
 

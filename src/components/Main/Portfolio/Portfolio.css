@@ -64,6 +64,11 @@
   letter-spacing: -0.04em;
   color: #fff;
   text-decoration: none;
+  transition: opacity .2s ease;
+}
+
+.portfolio__link:hover {
+  opacity: 0.7;
 }
 
 @media screen and (min-width: 768px) {

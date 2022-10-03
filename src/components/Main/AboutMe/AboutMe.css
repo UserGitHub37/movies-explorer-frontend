@@ -184,4 +184,9 @@
   line-height: 17px;
   color: #fff;
   text-decoration: none;
+  transition: opacity .2s ease;
+}
+
+.about-me__link:hover {
+  opacity: 0.7;
 }

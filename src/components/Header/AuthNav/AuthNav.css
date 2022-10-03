@@ -15,20 +15,23 @@
   font-weight: 500;
   font-size: 10px;
   line-height: 16px;
-  /* identical to box height, or 160% */
   color: #fff;
   text-decoration: none;
+  transition: opacity .2s ease;
+}
+
+.auth-nav__link:hover {
+  opacity: 0.7;
 }
 
 @media screen and (min-width: 768px) {
   .auth-nav__link {
     font-size: 12px;
     line-height: 16px;
-    /* identical to box height, or 133% */
   }
 }
 
-.auth-nav__button {
+.auth-nav__btn {
   border: none;
   padding: 0;
   background: #3DDC84;
@@ -39,15 +42,18 @@
   font-weight: 500;
   font-size: 10px;
   line-height: 16px;
-  /* identical to box height, or 160% */
   color: #000;
+  transition: opacity .2s ease;
+}
+
+.auth-nav__btn:hover {
+  opacity: 0.8;
 }
 
 @media screen and (min-width: 768px) {
-  .auth-nav__button {
+  .auth-nav__btn {
     font-size: 12px;
     line-height: 16px;
-    /* identical to box height, or 133% */
     width: 76px;
     height: 32px;
   }

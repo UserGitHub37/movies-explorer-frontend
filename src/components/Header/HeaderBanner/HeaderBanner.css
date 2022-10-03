@@ -58,7 +58,6 @@
   margin: 0;
   font-size: 31px;
   line-height: 39px;
-  /* or 126% */
   letter-spacing: -0.04em;
   color: #fff;
   max-width: 320px;
@@ -70,7 +69,6 @@
   .header-banner__title {
     font-size: 40.5px;
     line-height: 49px;
-    /* or 121% */
     max-width: 428px;
   }
 }
@@ -79,7 +77,6 @@
   .header-banner__title {
     font-size: 50px;
     line-height: 58px;
-    /* or 116% */
     max-width: 730px;
   }
 }

@@ -21,7 +21,6 @@
 .about-project__title {
   font-size: 18px;
   line-height: 22px;
-  /* identical to box height */
   letter-spacing: -0.04em;
   color: #fff;
   margin: 0 0 28px;
@@ -97,7 +96,6 @@
 .about-project__description-card-paragraph {
   font-size: 11px;
   line-height: 16px;
-  /* or 145% */
   color: #fff;
   margin: 0;
 }
@@ -106,7 +104,6 @@
   .about-project__description-card-paragraph {
     font-size: 12px;
     line-height: 18px;
-    /* or 150% */
   }
 }
 
@@ -114,7 +111,6 @@
   .about-project__description-card-paragraph {
     font-size: 14px;
     line-height: 20px;
-    /* or 143% */
   }
 }
 
@@ -188,7 +184,6 @@
   font-family: 'Suisse Intl, 'Arial', sans-serif';
   font-size: 11px;
   line-height: 13px;
-  /* identical to box height */
   text-align: center;
   color: #A0A0A0;
   margin: 0;
@@ -198,7 +193,6 @@
   .about-project__timing-task {
     font-size: 14px;
     line-height: 17px;
-    /* identical to box height, or 121% */
   }
 }
 
