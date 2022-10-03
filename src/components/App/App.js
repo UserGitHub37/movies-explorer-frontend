@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import './App.css';
@@ -16,6 +15,7 @@ import Preloader from '../common/Preloader/Preloader';
 import MoviesCardList from '../common/MoviesCardList/MoviesCardList';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import Profile from '../Profile/Profile';
 
 function App() {
   return (
@@ -85,6 +85,16 @@ function App() {
         path="/signin"
         element={
           <Login />
+        }
+      />
+
+      <Route
+        path="/profile"
+        element={
+          <>
+            <Header loggedIn={true} color={"black"} />
+            <Profile />
+          </>
         }
       />
 

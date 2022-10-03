@@ -13,7 +13,6 @@
 
 @media screen and (min-width: 768px) {
   .register {
-    /* grid-template-rows: repeat(4, min-content); */
     grid-template-rows: repeat(2, min-content) minmax(auto, 395px) min-content;
     align-content: center;
     padding: 30px;
@@ -75,7 +74,6 @@
 
 @media screen and (min-width: 768px) {
   .register__fieldset {
-    /* flex-grow: 0; */
     margin-bottom: 70px;
   }
 }
