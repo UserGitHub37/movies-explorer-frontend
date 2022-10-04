@@ -1,0 +1,21 @@
+.container-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-wrapper__color_dark-blue {
+  background-color: #073042;
+}
+
+.container-wrapper__color_grey {
+  background-color: #272727;
+}
+
+.container-wrapper__color_black {
+  background-color: #202020;
+}
+
+.container-wrapper__type_grow {
+  flex-grow: 1;
+}
