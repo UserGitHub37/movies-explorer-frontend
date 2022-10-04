@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import ContainerWrapper from '../common/ContainerWrapper/ContainerWrapper';
 import Header from '../Header/Header';
-import HeaderBanner from '../Header/HeaderBanner/HeaderBanner';
+import Promo from '../Promo/Promo';
 import MainPageNav from '../Header/MainPageNav/MainPageNav';
 import AboutProject from '../Main/AboutProject/AboutProject';
 import Techs from '../Main/Techs/Techs';
@@ -26,7 +26,7 @@ function App() {
         element={
           <>
             <Header loggedIn={false} color={"dark-blue"} />
-            <HeaderBanner />
+            <Promo />
             <MainPageNav />
             <AboutProject />
             <Techs />
