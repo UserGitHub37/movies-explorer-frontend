@@ -15,12 +15,14 @@ function Portfolio () {
               <a
                 href="https://github.com/UserGitHub37/how-to-learn/"
                 className="portfolio__link"
+                target="_blank" rel="noreferrer"
               >
                 Статичный сайт
               </a>
               <a
                 href="https://github.com/UserGitHub37/how-to-learn/"
                 className="portfolio__link"
+                target="_blank" rel="noreferrer"
               >
                 <img src={arrowPath} alt="" className="portfolio__arrow" />
               </a>
@@ -29,12 +31,14 @@ function Portfolio () {
               <a
                 href="https://github.com/UserGitHub37/russian-travel/"
                 className="portfolio__link"
+                target="_blank" rel="noreferrer"
               >
                 Адаптивный сайт
               </a>
               <a
                 href="https://github.com/UserGitHub37/russian-travel/"
                 className="portfolio__link"
+                target="_blank" rel="noreferrer"
               >
                 <img src={arrowPath} alt="" className="portfolio__arrow" />
               </a>
@@ -43,12 +47,14 @@ function Portfolio () {
               <a
                 href="https://github.com/UserGitHub37/react-mesto-api-full/"
                 className="portfolio__link"
+                target="_blank" rel="noreferrer"
               >
                 Одностраничное приложение
               </a>
               <a
                 href="https://github.com/UserGitHub37/react-mesto-api-full/"
                 className="portfolio__link"
+                target="_blank" rel="noreferrer"
               >
                 <img src={arrowPath} alt="" className="portfolio__arrow" />
               </a>

@@ -21,7 +21,7 @@ function AboutMe () {
                   Я родился и живу в Москве, закончил факультет "Автомобили и тракторы" МГТУ "МАМИ" (Московский политех). До моего увлечения фронтенд разработкой 4 года проработал в техподдержке и 5 лет системным администратором. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos at id ad nemo nostrum excepturi recusandae rem iusto
                 </p>
               </div>
-              <a href="https://github.com/UserGitHub37" className="about-me__link">Github</a>
+              <a href="https://github.com/UserGitHub37" className="about-me__link" target="_blank" rel="noreferrer">Github</a>
             </div>
           </div>
         </div>
