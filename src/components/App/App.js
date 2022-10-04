@@ -16,6 +16,7 @@ import MoviesCardList from '../common/MoviesCardList/MoviesCardList';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
+import Page404 from '../Page404/Page404';
 
 function App() {
   return (
@@ -98,6 +99,12 @@ function App() {
         }
       />
 
+      <Route
+        path="*"
+        element={
+          <Page404 />
+        }
+      />
     </Routes>
   );
 }

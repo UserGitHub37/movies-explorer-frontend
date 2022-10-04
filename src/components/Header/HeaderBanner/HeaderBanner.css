@@ -56,6 +56,7 @@
 
 .header-banner__title {
   margin: 0;
+  font-weight: 400;
   font-size: 31px;
   line-height: 39px;
   letter-spacing: -0.04em;

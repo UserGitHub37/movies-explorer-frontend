@@ -5,7 +5,7 @@ import ContainerWrapper from '../common/ContainerWrapper/ContainerWrapper';
 
 import './Profile.css';
 
-function Profile ( {children} ) {
+function Profile () {
 
   const navigate = useNavigate();
 
