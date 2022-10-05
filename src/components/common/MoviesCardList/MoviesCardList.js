@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { cards } from '../../../utils/movies'
 import useViewport from '../../../hooks/useViewport';
 import Card from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
@@ -7,7 +6,15 @@ import './MoviesCardList.css';
 function MoviesCardList ({ isMoreButton = false }) {
   const { width } = useViewport();
 
+  const [cards, setCards] = useState([]);
   const [numberOfCards, setNumberOfCards] = useState(5);
+
+  useEffect(() => {
+    if (sessionStorage.getItem('cards')) {
+      setCards(JSON.parse(sessionStorage.getItem('cards')));
+    }
+
+  }, [])
 
   useEffect(() => {
     const breakpoint = {
@@ -28,7 +35,7 @@ function MoviesCardList ({ isMoreButton = false }) {
       setNumberOfCards(cards.length);
     }
 
-  }, [width])
+  }, [cards.length, width])
 
   return (
     <section className="card-list" aria-label="Фильмы">

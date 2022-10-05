@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import './App.css';
@@ -18,7 +19,24 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import Page404 from '../Page404/Page404';
 
+import moviesApi from '../../utils/MoviesApi';
+
 function App() {
+
+  useEffect(() => {
+    if (!sessionStorage.getItem('cards')) {
+      console.log('cards в sessionStorage нет');
+
+      moviesApi.getCardList()
+      .then((initialCards) => {
+        sessionStorage.setItem('cards', JSON.stringify(initialCards));
+      })
+      .catch(err => console.log(err));
+    } else {
+      console.log('cards в sessionStorage есть');
+    }
+  }, []);
+
   return (
     <Routes>
       <Route
@@ -45,7 +63,7 @@ function App() {
             <ContainerWrapper className={"container-wrapper__color_black"}>
               <SearchForm />
             </ContainerWrapper>
-            <ContainerWrapper className={"container-wrapper__color_black"}>
+            <ContainerWrapper className={"container-wrapper__color_black container-wrapper__type_grow"}>
               <Preloader isActive={false} />
               <MoviesCardList isMoreButton={true} />
             </ContainerWrapper>
