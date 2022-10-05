@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import './App.css';
 import ContainerWrapper from '../common/ContainerWrapper/ContainerWrapper';
@@ -20,8 +20,10 @@ import Profile from '../Profile/Profile';
 import Page404 from '../Page404/Page404';
 
 import moviesApi from '../../utils/MoviesApi';
+import mainApi from '../../utils/MainApi';
 
 function App() {
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!sessionStorage.getItem('cards')) {
@@ -36,6 +38,16 @@ function App() {
       console.log('cards в sessionStorage есть');
     }
   }, []);
+
+  function handleRegister(data) {
+    mainApi.register(data)
+    .then(() => {
+      navigate('/signin');
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
   return (
     <Routes>
@@ -96,7 +108,7 @@ function App() {
       <Route
         path="/signup"
         element={
-          <Register />
+          <Register onRegister={handleRegister} />
         }
       />
 

@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import ContainerWrapper from '../common/ContainerWrapper/ContainerWrapper';
 import logoPath from '../../images/header-logo.svg';
 
 import './Register.css';
 
-function Register () {
-
-  const navigate = useNavigate();
+function Register ({ onRegister }) {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -32,9 +30,13 @@ function Register () {
     setPassword(e.target.value);
   }
 
-  function onSubmit (e) {
+  function handleSubmit (e) {
     e.preventDefault();
-    navigate('/signin');
+    onRegister({
+      name,
+      email,
+      password,
+    });
   }
 
   return (
@@ -51,7 +53,7 @@ function Register () {
           className="register__form"
           action="#"
           name="register"
-          onSubmit={onSubmit}
+          onSubmit={handleSubmit}
         >
           <fieldset className="register__fieldset">
             <label className="register__input-label">
