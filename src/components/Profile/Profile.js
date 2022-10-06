@@ -5,7 +5,7 @@ import ContainerWrapper from '../common/ContainerWrapper/ContainerWrapper';
 
 import './Profile.css';
 
-function Profile () {
+function Profile ({ onSignOut }) {
 
   const navigate = useNavigate();
 
@@ -79,7 +79,7 @@ function Profile () {
           </fieldset>
           <button type="submit" className="profile__submit-btn">Редактировать</button>
         </form>
-        <button type="button" className="profile__logout-btn">Выйти из аккаунта</button>
+        <button type="button" className="profile__logout-btn" onClick={onSignOut} >Выйти из аккаунта</button>
       </div>
     </ContainerWrapper>
   );

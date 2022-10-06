@@ -36,7 +36,8 @@ function App() {
       .catch(err => console.log(err));
     }
 
-    mainApi.checkToken()
+    if(localStorage.getItem('token')) {
+      mainApi.checkToken()
       .then((res) => {
         if (res.ok) {
           setLoggedIn(true);
@@ -45,6 +46,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
+    }
 
   }, []);
 
@@ -66,6 +68,12 @@ function App() {
         password: data.password,
       })
     })
+  }
+
+  function handleSignOut () {
+    localStorage.removeItem('token');
+    setLoggedIn(false);
+    navigate('/');
   }
 
   return (
@@ -143,7 +151,7 @@ function App() {
         element={
           <>
             <Header loggedIn={loggedIn} color={"black"} />
-            <Profile />
+            <Profile onSignOut={handleSignOut} />
           </>
         }
       />
