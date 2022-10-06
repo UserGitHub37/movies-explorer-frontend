@@ -23,29 +23,48 @@ import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!sessionStorage.getItem('cards')) {
-      console.log('cards в sessionStorage нет');
-
       moviesApi.getCardList()
       .then((initialCards) => {
         sessionStorage.setItem('cards', JSON.stringify(initialCards));
       })
       .catch(err => console.log(err));
-    } else {
-      console.log('cards в sessionStorage есть');
     }
+
+    mainApi.checkToken()
+      .then((res) => {
+        if (res.ok) {
+          setLoggedIn(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
   }, []);
+
+  function handleLogin(data) {
+    mainApi.authorize(data)
+    .then((res) => {
+      setLoggedIn(true);
+      localStorage.setItem('token', res.token);
+      navigate('/movies');
+    })
+    .catch(err => console.log(err));
+  }
 
   function handleRegister(data) {
     mainApi.register(data)
     .then(() => {
-      navigate('/signin');
-    })
-    .catch((err) => {
-      console.log(err);
+      handleLogin({
+        email: data.email,
+        password: data.password,
+      })
     })
   }
 
@@ -55,7 +74,7 @@ function App() {
         path="/"
         element={
           <>
-            <Header loggedIn={false} color={"dark-blue"} />
+            <Header loggedIn={loggedIn} color={"dark-blue"} />
             <Promo />
             <MainPageNav />
             <AboutProject />
@@ -71,7 +90,7 @@ function App() {
         path="/movies"
         element={
           <>
-            <Header loggedIn={true} color={"black"} />
+            <Header loggedIn={loggedIn} color={"black"} />
             <ContainerWrapper className={"container-wrapper__color_black"}>
               <SearchForm />
             </ContainerWrapper>
@@ -88,7 +107,7 @@ function App() {
         path="/saved-movies"
         element={
           <>
-            <Header loggedIn={true} color={"black"} />
+            <Header loggedIn={loggedIn} color={"black"} />
             <ContainerWrapper className={"container-wrapper__color_black"}>
               <SearchForm />
               </ContainerWrapper>
@@ -115,7 +134,7 @@ function App() {
       <Route
         path="/signin"
         element={
-          <Login />
+          <Login onLogin={handleLogin} />
         }
       />
 
@@ -123,7 +142,7 @@ function App() {
         path="/profile"
         element={
           <>
-            <Header loggedIn={true} color={"black"} />
+            <Header loggedIn={loggedIn} color={"black"} />
             <Profile />
           </>
         }

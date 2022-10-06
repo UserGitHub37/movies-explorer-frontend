@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import ContainerWrapper from '../common/ContainerWrapper/ContainerWrapper';
 import logoPath from '../../images/header-logo.svg';
 
 import './Login.css';
 
-function Login () {
-
-  const navigate = useNavigate();
+function Login ({ onLogin }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,7 +26,10 @@ function Login () {
 
   function onSubmit (e) {
     e.preventDefault();
-    navigate('/movies');
+    onLogin({
+      email,
+      password,
+    });
   }
 
   return (
