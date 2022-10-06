@@ -12,11 +12,11 @@ class MainApi {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  checkToken() {
-    return fetch(`${this._baseUrl}auth`, {
+  getUserInfo() {
+    return fetch(`${this._baseUrl}users/me`, {
         method: 'GET',
         headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('token')}`},
-    });
+    }).then(this._checkPromise);
   }
 
   register(data) {

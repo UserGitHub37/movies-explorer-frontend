@@ -24,6 +24,7 @@ import mainApi from '../../utils/MainApi';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
 
   const navigate = useNavigate();
 
@@ -37,11 +38,10 @@ function App() {
     }
 
     if(localStorage.getItem('token')) {
-      mainApi.checkToken()
-      .then((res) => {
-        if (res.ok) {
-          setLoggedIn(true);
-        }
+      mainApi.getUserInfo()
+      .then((userData) => {
+        setCurrentUser(userData);
+        setLoggedIn(true);
       })
       .catch((err) => {
         console.log(err);
