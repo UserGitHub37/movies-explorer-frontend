@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import './App.css';
+import ProtectedRoute from '../common/ProtectedRoute/ProtectedRoute';
 import ContainerWrapper from '../common/ContainerWrapper/ContainerWrapper';
 import Header from '../Header/Header';
 import Promo from '../Promo/Promo';
@@ -37,7 +38,7 @@ function App() {
       .catch(err => console.log(err));
     }
 
-    if(localStorage.getItem('token')) {
+    if (localStorage.getItem('token')) {
       mainApi.getUserInfo()
       .then((userData) => {
         setCurrentUser(userData);
@@ -97,7 +98,7 @@ function App() {
       <Route
         path="/movies"
         element={
-          <>
+          <ProtectedRoute loggedIn={loggedIn}>
             <Header loggedIn={loggedIn} color={"black"} />
             <ContainerWrapper className={"container-wrapper__color_black"}>
               <SearchForm />
@@ -107,14 +108,14 @@ function App() {
               <MoviesCardList isMoreButton={true} />
             </ContainerWrapper>
             <Footer />
-          </>
+          </ProtectedRoute>
         }
       />
 
       <Route
         path="/saved-movies"
         element={
-          <>
+          <ProtectedRoute loggedIn={loggedIn}>
             <Header loggedIn={loggedIn} color={"black"} />
             <ContainerWrapper className={"container-wrapper__color_black"}>
               <SearchForm />
@@ -128,7 +129,7 @@ function App() {
               <MoviesCardList />
             </ContainerWrapper>
             <Footer />
-          </>
+          </ProtectedRoute>
         }
       />
 
@@ -149,10 +150,10 @@ function App() {
       <Route
         path="/profile"
         element={
-          <>
+          <ProtectedRoute loggedIn={loggedIn}>
             <Header loggedIn={loggedIn} color={"black"} />
             <Profile onSignOut={handleSignOut} />
-          </>
+          </ProtectedRoute>
         }
       />
 
