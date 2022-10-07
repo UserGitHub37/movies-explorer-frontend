@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 import './App.css';
 import ProtectedRoute from '../common/ProtectedRoute/ProtectedRoute';
@@ -78,92 +79,94 @@ function App() {
   }
 
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <>
-            <Header loggedIn={loggedIn} color={"dark-blue"} />
-            <Promo />
-            <MainPageNav />
-            <AboutProject />
-            <Techs />
-            <AboutMe />
-            <Portfolio />
-            <Footer />
-          </>
-        }
-      />
+    <CurrentUserContext.Provider value={currentUser}>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Header loggedIn={loggedIn} color={"dark-blue"} />
+              <Promo />
+              <MainPageNav />
+              <AboutProject />
+              <Techs />
+              <AboutMe />
+              <Portfolio />
+              <Footer />
+            </>
+          }
+        />
 
-      <Route
-        path="/movies"
-        element={
-          <ProtectedRoute loggedIn={loggedIn}>
-            <Header loggedIn={loggedIn} color={"black"} />
-            <ContainerWrapper className={"container-wrapper__color_black"}>
-              <SearchForm />
-            </ContainerWrapper>
-            <ContainerWrapper className={"container-wrapper__color_black container-wrapper__type_grow"}>
-              <Preloader isActive={false} />
-              <MoviesCardList isMoreButton={true} />
-            </ContainerWrapper>
-            <Footer />
-          </ProtectedRoute>
-        }
-      />
-
-      <Route
-        path="/saved-movies"
-        element={
-          <ProtectedRoute loggedIn={loggedIn}>
-            <Header loggedIn={loggedIn} color={"black"} />
-            <ContainerWrapper className={"container-wrapper__color_black"}>
-              <SearchForm />
+        <Route
+          path="/movies"
+          element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <Header loggedIn={loggedIn} color={"black"} />
+              <ContainerWrapper className={"container-wrapper__color_black"}>
+                <SearchForm />
               </ContainerWrapper>
-            <ContainerWrapper
-              className={
-                "container-wrapper__color_black container-wrapper__type_grow"
-              }
-            >
-              <Preloader isActive={false} />
-              <MoviesCardList />
-            </ContainerWrapper>
-            <Footer />
-          </ProtectedRoute>
-        }
-      />
+              <ContainerWrapper className={"container-wrapper__color_black container-wrapper__type_grow"}>
+                <Preloader isActive={false} />
+                <MoviesCardList isMoreButton={true} />
+              </ContainerWrapper>
+              <Footer />
+            </ProtectedRoute>
+          }
+        />
 
-      <Route
-        path="/signup"
-        element={
-          <Register onRegister={handleRegister} />
-        }
-      />
+        <Route
+          path="/saved-movies"
+          element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <Header loggedIn={loggedIn} color={"black"} />
+              <ContainerWrapper className={"container-wrapper__color_black"}>
+                <SearchForm />
+                </ContainerWrapper>
+              <ContainerWrapper
+                className={
+                  "container-wrapper__color_black container-wrapper__type_grow"
+                }
+              >
+                <Preloader isActive={false} />
+                <MoviesCardList />
+              </ContainerWrapper>
+              <Footer />
+            </ProtectedRoute>
+          }
+        />
 
-      <Route
-        path="/signin"
-        element={
-          <Login onLogin={handleLogin} />
-        }
-      />
+        <Route
+          path="/signup"
+          element={
+            <Register onRegister={handleRegister} />
+          }
+        />
 
-      <Route
-        path="/profile"
-        element={
-          <ProtectedRoute loggedIn={loggedIn}>
-            <Header loggedIn={loggedIn} color={"black"} />
-            <Profile onSignOut={handleSignOut} />
-          </ProtectedRoute>
-        }
-      />
+        <Route
+          path="/signin"
+          element={
+            <Login onLogin={handleLogin} />
+          }
+        />
 
-      <Route
-        path="*"
-        element={
-          <Page404 />
-        }
-      />
-    </Routes>
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <Header loggedIn={loggedIn} color={"black"} />
+              <Profile onSignOut={handleSignOut} />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="*"
+          element={
+            <Page404 />
+          }
+        />
+      </Routes>
+    </CurrentUserContext.Provider>
   );
 }
 

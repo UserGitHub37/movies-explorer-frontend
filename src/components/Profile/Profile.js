@@ -1,21 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 import ContainerWrapper from '../common/ContainerWrapper/ContainerWrapper';
 
 import './Profile.css';
 
 function Profile ({ onSignOut }) {
+  const currentUser = useContext(CurrentUserContext);
 
   const navigate = useNavigate();
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-
-  React.useEffect(() => {
-    setName('');
-    setEmail('');
-  }, []);
+  const [name, setName] = useState(currentUser.name);
+  const [email, setEmail] = useState(currentUser.email);
 
   function handleChangeName(e) {
     setName(e.target.value);
@@ -35,7 +32,7 @@ function Profile ({ onSignOut }) {
       className={"container-wrapper__color_black container-wrapper__type_grow"}
     >
       <div className="profile">
-        <h1 className="profile__title">Привет, Виталий!</h1>
+        <h1 className="profile__title">Привет, {currentUser.name}</h1>
 
         <form
           className="profile__form"
@@ -51,7 +48,7 @@ function Profile ({ onSignOut }) {
                 id="profile-name-input"
                 type="text"
                 name="profileName"
-                placeholder="Виталий"
+                placeholder="Введите имя"
                 minLength="2"
                 maxLength="30"
                 required
@@ -67,7 +64,7 @@ function Profile ({ onSignOut }) {
                 id="profile-email-input"
                 type="email"
                 name="profileEmail"
-                placeholder="pochta@yandex.ru"
+                placeholder="Введите E-mail"
                 minLength='5'
                 maxLength='40'
                 required
