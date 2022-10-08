@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 import './App.css';
@@ -25,7 +25,7 @@ import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(undefined);
   const [currentUser, setCurrentUser] = useState({});
 
   const navigate = useNavigate();
@@ -33,46 +33,49 @@ function App() {
   useEffect(() => {
     if (!sessionStorage.getItem('cards')) {
       moviesApi.getCardList()
-      .then((initialCards) => {
-        sessionStorage.setItem('cards', JSON.stringify(initialCards));
-      })
-      .catch(err => console.log(err));
+        .then((initialCards) => {
+          sessionStorage.setItem('cards', JSON.stringify(initialCards));
+        })
+        .catch(err => console.log(err));
     }
 
     if (localStorage.getItem('token')) {
       mainApi.getUserInfo()
-      .then((userData) => {
-        setCurrentUser(userData);
-        setLoggedIn(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((userData) => {
+          setCurrentUser(userData);
+          setLoggedIn(true);
+        })
+        .catch((err) => {
+          setLoggedIn(false);
+          console.log(err);
+        });
+    } else {
+      setLoggedIn(false);
     }
 
   }, []);
 
   function handleLogin(data) {
     mainApi.authorize(data)
-    .then((res) => {
-      setLoggedIn(true);
-      localStorage.setItem('token', res.token);
-      navigate('/movies');
-    })
-    .catch(err => console.log(err));
+      .then((res) => {
+        setLoggedIn(true);
+        localStorage.setItem('token', res.token);
+        navigate('/movies');
+      })
+      .catch(err => console.log(err));
   }
 
   function handleRegister(data) {
     mainApi.register(data)
-    .then(() => {
-      handleLogin({
-        email: data.email,
-        password: data.password,
+      .then(() => {
+        handleLogin({
+          email: data.email,
+          password: data.password,
+        })
       })
-    })
   }
 
-  function handleSignOut () {
+  function handleSignOut() {
     localStorage.removeItem('token');
     setLoggedIn(false);
     navigate('/');
@@ -105,7 +108,11 @@ function App() {
               <ContainerWrapper className={"container-wrapper__color_black"}>
                 <SearchForm />
               </ContainerWrapper>
-              <ContainerWrapper className={"container-wrapper__color_black container-wrapper__type_grow"}>
+              <ContainerWrapper
+                className={
+                  "container-wrapper__color_black container-wrapper__type_grow"
+                }
+              >
                 <Preloader isActive={false} />
                 <MoviesCardList isMoreButton={true} />
               </ContainerWrapper>
@@ -121,7 +128,7 @@ function App() {
               <Header loggedIn={loggedIn} color={"black"} />
               <ContainerWrapper className={"container-wrapper__color_black"}>
                 <SearchForm />
-                </ContainerWrapper>
+              </ContainerWrapper>
               <ContainerWrapper
                 className={
                   "container-wrapper__color_black container-wrapper__type_grow"
@@ -138,14 +145,18 @@ function App() {
         <Route
           path="/signup"
           element={
-            <Register onRegister={handleRegister} />
+            loggedIn ? (
+              <Navigate to="/" />
+            ) : (
+              <Register onRegister={handleRegister} />
+            )
           }
         />
 
         <Route
           path="/signin"
           element={
-            <Login onLogin={handleLogin} />
+            loggedIn ? <Navigate to="/" /> : <Login onLogin={handleLogin} />
           }
         />
 
@@ -159,12 +170,7 @@ function App() {
           }
         />
 
-        <Route
-          path="*"
-          element={
-            <Page404 />
-          }
-        />
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </CurrentUserContext.Provider>
   );
