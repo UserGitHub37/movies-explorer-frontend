@@ -9,6 +9,11 @@ function MoviesCardList ({ isMoreButton = false }) {
   const [cards, setCards] = useState([]);
   const [numberOfCards, setNumberOfCards] = useState(5);
 
+  const breakpoint = {
+        sm: 630,
+        md: 930,
+        lg: 1280,
+      };
   useEffect(() => {
     if (sessionStorage.getItem('cards')) {
       setCards(JSON.parse(sessionStorage.getItem('cards')));
@@ -17,12 +22,6 @@ function MoviesCardList ({ isMoreButton = false }) {
   }, [])
 
   useEffect(() => {
-    const breakpoint = {
-      sm: 630,
-      md: 930,
-      lg: 1280,
-    };
-
     if (width < breakpoint.sm && cards.length >= 5) {
       setNumberOfCards(5);
     } else if (width < breakpoint.md && cards.length >= 8) {
@@ -35,7 +34,21 @@ function MoviesCardList ({ isMoreButton = false }) {
       setNumberOfCards(cards.length);
     }
 
-  }, [cards.length, width])
+  }, [width, cards.length, breakpoint.sm, breakpoint.md, breakpoint.lg])
+
+  function handleClickMoreButton () {
+    setNumberOfCards((amount) => {
+      if (width < breakpoint.sm) {
+        return amount + 5;
+      } else if (width < breakpoint.md) {
+        return amount + 2;
+      } else if (width < breakpoint.lg) {
+        return amount + 3;
+      } else if (width >= breakpoint.lg) {
+        return amount + 4;
+      }
+    })
+  }
 
   return (
     <section className="card-list" aria-label="Фильмы">
@@ -47,7 +60,7 @@ function MoviesCardList ({ isMoreButton = false }) {
           />
         ))}
       </ul>
-      {isMoreButton && <button className="card-list__more-button">Ещё</button>}
+      {isMoreButton && <button className="card-list__more-button" onClick={handleClickMoreButton}>Ещё</button>}
     </section>
   );
 }
