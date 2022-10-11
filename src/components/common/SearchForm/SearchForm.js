@@ -21,7 +21,7 @@ function SearchForm ({ name, onSearchMovies, onSetShortMovies }) {
 
     setChecked(() => {
       if (location.pathname === '/movies') {
-        return localStorage.getItem('isShortMovies') === 'true';
+        return localStorage.getItem('isShortMainMovies') === 'true';
       } else if (location.pathname === '/saved-movies') {
         return localStorage.getItem('isShortSavedMovies') === 'true';
       }

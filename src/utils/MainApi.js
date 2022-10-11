@@ -36,11 +36,27 @@ class MainApi {
   }
 
   getSavedMoviesList() {
-    return fetch(this._baseUrl, {
+    return fetch(`${this._baseUrl}movies`, {
       method: 'GET',
-      headers: this._headers
-  }).then(this._checkPromise);
+      headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('token')}`},
+    }).then(this._checkPromise);
   }
+
+  saveMovie(card) {
+    return fetch(`${this._baseUrl}movies`, {
+      method: 'POST',
+      headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('token')}`},
+      body: JSON.stringify(card),
+    }).then(this._checkPromise);
+  }
+
+  removeSavedMovie(movieId) {
+    return fetch(`${this._baseUrl}movies/${movieId}`, {
+        method: 'DELETE',
+        headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('token')}`},
+    }).then(this._checkPromise);
+  }
+
 }
 
 const mainApi = new MainApi({

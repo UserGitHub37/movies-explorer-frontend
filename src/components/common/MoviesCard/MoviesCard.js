@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './MoviesCard.css';
 
-function Card ({card}) {
+function Card ({ card, onLikeCard, savedMovies }) {
   const convertMinsToHrsMins = (mins) => {
     let h = Math.floor(mins / 60);
     let m = mins % 60;
@@ -11,12 +11,31 @@ function Card ({card}) {
 
   const [buttonClassName, setButtonClassName] = useState("card__like-btn");
 
-  function handleLikeClick() {
-    if (buttonClassName.includes("card__like-btn_active")) {
-      setButtonClassName("card__like-btn");
-    } else {
+  useEffect(() => {
+    const isSaved = savedMovies.some(savedMovie => savedMovie.movieId === card.id);
+
+    if (isSaved) {
       setButtonClassName("card__like-btn card__like-btn_active");
+    } else {
+      setButtonClassName("card__like-btn");
     }
+  }, [savedMovies, card])
+
+  function handleLikeClick() {
+    onLikeCard({
+      country: card.country,
+      director: card.director,
+      duration: card.duration,
+      year: card.year,
+      description: card.description,
+      image: `https://api.nomoreparties.co/${card.image.url}`,
+      trailerLink: card.trailerLink,
+      thumbnail: `https://api.nomoreparties.co/${card.image.formats.thumbnail.url}`,
+      nameRU: card.nameRU,
+      nameEN: card.nameEN,
+      movieId: card.id,
+    });
+
   }
 
   return (

@@ -4,7 +4,7 @@ import useViewport from '../../../hooks/useViewport';
 import Card from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
-function MoviesCardList ({ cards }) {
+function MoviesCardList ({ cards, onLikeCard, savedMovies }) {
   let location = useLocation();
   const { width } = useViewport();
 
@@ -60,6 +60,8 @@ function MoviesCardList ({ cards }) {
           <Card
             key={card.id}
             card={card}
+            onLikeCard={onLikeCard}
+            savedMovies={savedMovies}
           />
         ))}
       </ul>
