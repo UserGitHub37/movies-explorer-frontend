@@ -35,6 +35,12 @@ class MainApi {
     }).then(this._checkPromise);
   }
 
+  getSavedMoviesList() {
+    return fetch(this._baseUrl, {
+      method: 'GET',
+      headers: this._headers
+  }).then(this._checkPromise);
+  }
 }
 
 const mainApi = new MainApi({

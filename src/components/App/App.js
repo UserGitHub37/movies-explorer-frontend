@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate, useLocation } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 import './App.css';
@@ -27,18 +27,14 @@ import mainApi from '../../utils/MainApi';
 function App() {
   const [loggedIn, setLoggedIn] = useState(undefined);
   const [currentUser, setCurrentUser] = useState({});
+  const [mainCards, setMainCards] = useState([]);
+  const [savedCards, setSavedCards] = useState([]);
+  const [preloaderIsActive, setPreloaderIsActive] = useState(false);
 
   const navigate = useNavigate();
+  let location = useLocation();
 
   useEffect(() => {
-    if (!sessionStorage.getItem('cards')) {
-      moviesApi.getCardList()
-        .then((initialCards) => {
-          sessionStorage.setItem('cards', JSON.stringify(initialCards));
-        })
-        .catch(err => console.log(err));
-    }
-
     if (localStorage.getItem('token')) {
       mainApi.getUserInfo()
         .then((userData) => {
@@ -52,8 +48,35 @@ function App() {
     } else {
       setLoggedIn(false);
     }
-
   }, []);
+
+  useEffect(() => {
+    if (location.pathname === '/movies') {
+      const filteredAllMovies = localStorage.getItem('filteredAllMovies');
+      if (filteredAllMovies) {
+        if (localStorage.getItem('isShortMovies') === 'true') {
+          setMainCards(() => JSON.parse(filteredAllMovies).filter((card) => card.duration < 40));
+        } else {
+          setMainCards(() => JSON.parse(filteredAllMovies));
+        }
+      } else {
+        setMainCards([]);
+      }
+    }
+
+    if (location.pathname === '/saved-movies') {
+      const filteredSavedMovies = localStorage.getItem('filteredSavedMovies');
+      if (filteredSavedMovies) {
+        if (localStorage.getItem('isShortSavedMovies') === 'true') {
+          setSavedCards(() => JSON.parse(filteredSavedMovies).filter((card) => card.duration < 40));
+        } else {
+          setSavedCards(() => JSON.parse(filteredSavedMovies));
+        }
+      } else {
+        setSavedCards([]);
+      }
+    }
+  }, [location.pathname]);
 
   function handleLogin(data) {
     mainApi.authorize(data)
@@ -81,6 +104,74 @@ function App() {
     navigate('/');
   }
 
+  function handleSearchMovies(searchText) {
+    if (location.pathname === '/movies') {
+      setMainCards([]);
+      localStorage.setItem('moviesSearchText', searchText);
+      if (!searchText) {
+        localStorage.removeItem('filteredAllMovies');
+      } else if (!localStorage.getItem('allMovies')) {
+        setPreloaderIsActive(true);
+        moviesApi.getMoviesList()
+          .then((data) => {
+            localStorage.setItem('allMovies', JSON.stringify(data));
+            const filteredData = data.filter((card) => card.nameRU.toLowerCase().includes(searchText.toLowerCase()));
+            setMainCards(filteredData);
+            localStorage.setItem('filteredAllMovies', JSON.stringify(filteredData));
+          })
+          .catch(err => console.log(err))
+          .finally(() => setPreloaderIsActive(false));
+      } else {
+        const allMoviesFromStorage = JSON.parse(localStorage.getItem('allMovies'));
+        const filteredData = allMoviesFromStorage.filter((card) => card.nameRU.toLowerCase().includes(searchText.toLowerCase()));
+        setMainCards(filteredData);
+        localStorage.setItem('filteredAllMovies', JSON.stringify(filteredData));
+      }
+
+    } else if (location.pathname === '/saved-movies') {
+      setSavedCards([]);
+      localStorage.setItem('savedMoviesSearchText', searchText);
+      if (!localStorage.getItem('savedMovies')) {
+        mainApi.getSavedMoviesList()
+          .then((data) => {
+            localStorage.setItem('savedMovies', JSON.stringify(data));
+            setSavedCards(data);
+          })
+          .catch(err => console.log(err));
+      } else {
+        setSavedCards(JSON.parse(localStorage.getItem('savedMovies')));
+      }
+    }
+  }
+
+  function handleSetShortMovies(checked) {
+    if (location.pathname === '/movies') {
+      localStorage.setItem('isShortMovies', checked);
+      const filteredAllMovies = localStorage.getItem('filteredAllMovies');
+      if (filteredAllMovies) {
+        if (checked) {
+          setMainCards(() => JSON.parse(filteredAllMovies).filter((card) => card.duration < 40));
+        } else {
+          setMainCards(() => JSON.parse(filteredAllMovies));
+        }
+      } else {
+        setMainCards([])
+      }
+    } else if (location.pathname === '/saved-movies') {
+      localStorage.setItem('isShortSavedMovies', checked);
+      const filteredSavedMovies = localStorage.getItem('filteredSavedMovies');
+      if (filteredSavedMovies) {
+        if (checked) {
+          setSavedCards(() => JSON.parse(filteredSavedMovies).filter((card) => card.duration < 40));
+        } else {
+          setSavedCards(() => JSON.parse(filteredSavedMovies));
+        }
+      } else {
+        setSavedCards([]);
+      }
+    }
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Routes>
@@ -106,15 +197,15 @@ function App() {
             <ProtectedRoute loggedIn={loggedIn}>
               <Header loggedIn={loggedIn} color={"black"} />
               <ContainerWrapper className={"container-wrapper__color_black"}>
-                <SearchForm />
+                <SearchForm onSearchMovies={handleSearchMovies} onSetShortMovies={handleSetShortMovies} />
               </ContainerWrapper>
               <ContainerWrapper
                 className={
                   "container-wrapper__color_black container-wrapper__type_grow"
                 }
               >
-                <Preloader isActive={false} />
-                <MoviesCardList isMoreButton={true} />
+                <Preloader isActive={preloaderIsActive} />
+                <MoviesCardList cards={mainCards} />
               </ContainerWrapper>
               <Footer />
             </ProtectedRoute>
@@ -127,15 +218,15 @@ function App() {
             <ProtectedRoute loggedIn={loggedIn}>
               <Header loggedIn={loggedIn} color={"black"} />
               <ContainerWrapper className={"container-wrapper__color_black"}>
-                <SearchForm />
+                <SearchForm onSearchMovies={handleSearchMovies} onSetShortMovies={handleSetShortMovies} />
               </ContainerWrapper>
               <ContainerWrapper
                 className={
                   "container-wrapper__color_black container-wrapper__type_grow"
                 }
               >
-                <Preloader isActive={false} />
-                <MoviesCardList />
+                <Preloader isActive={preloaderIsActive} />
+                <MoviesCardList cards={savedCards} />
               </ContainerWrapper>
               <Footer />
             </ProtectedRoute>

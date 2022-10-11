@@ -12,7 +12,7 @@ class MoviesApi {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getCardList() {
+  getMoviesList() {
     return fetch(this._baseUrl, {
         method: 'GET',
         headers: this._headers
