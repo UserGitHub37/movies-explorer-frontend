@@ -23,7 +23,7 @@ function Register ({ onRegister }) {
   }
 
   function handleChangeEmail(e) {
-    setEmail(e.target.value);
+    setEmail(() => e.target.value.toLowerCase());
   }
 
   function handleChangePassword(e) {

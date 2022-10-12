@@ -87,9 +87,13 @@ function App() {
   function handleLogin(data) {
     mainApi.authorize(data)
       .then((res) => {
-        setLoggedIn(true);
         localStorage.setItem('token', res.token);
-        navigate('/movies');
+        mainApi.getUserInfo()
+          .then((userData) => {
+            setCurrentUser(userData);
+            setLoggedIn(true);
+            navigate('/movies');
+          })
       })
       .catch(err => console.log(err));
   }
@@ -102,6 +106,7 @@ function App() {
           password: data.password,
         })
       })
+      .catch(err => console.log(err));
   }
 
   function handleSignOut() {
@@ -143,7 +148,6 @@ function App() {
       }
     }
       //! Сделать логику для '/saved-movies'
-    localStorage.setItem('savedMoviesSearchText', searchText);
     if (!searchText) {
       localStorage.removeItem('filteredSavedMovies');
     } else if (location.pathname === '/saved-movies') {

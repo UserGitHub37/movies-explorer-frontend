@@ -19,7 +19,7 @@ function Profile ({ onSignOut }) {
   }
 
   function handleChangeEmail(e) {
-    setEmail(e.target.value);
+    setEmail(() => e.target.value.toLowerCase());
   }
 
   function onSubmit (e) {
