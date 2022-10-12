@@ -12,7 +12,7 @@ function SearchForm ({ name, onSearchMovies, onSetShortMovies }) {
   useEffect(() => {
     setSearchText(() => {
       if (location.pathname === '/movies') {
-        return localStorage.getItem('moviesSearchText');
+        return localStorage.getItem('mainMoviesSearchText');
       } else if (location.pathname === '/saved-movies') {
         return localStorage.getItem('savedMoviesSearchText');
       }

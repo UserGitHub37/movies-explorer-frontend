@@ -111,6 +111,14 @@ function App() {
 
   function handleSignOut() {
     localStorage.removeItem('token');
+    localStorage.removeItem('mainMovies');
+    localStorage.removeItem('mainMoviesSearchText');
+    localStorage.removeItem('savedMoviesSearchText');
+    localStorage.removeItem('isShortMainMovies');
+    localStorage.removeItem('isShortSavedMovies');
+    localStorage.removeItem('filteredMainMovies');
+    localStorage.removeItem('filteredSavedMovies');
+    localStorage.removeItem('savedMovies');
     setLoggedIn(false);
     navigate('/');
   }
@@ -118,7 +126,7 @@ function App() {
   function handleSearchMovies(searchText) {
     setMainMovies([]);
     if (location.pathname === '/movies') {
-      localStorage.setItem('moviesSearchText', searchText);
+      localStorage.setItem('mainMoviesSearchText', searchText);
       if (!searchText) {
         localStorage.removeItem('filteredMainMovies');
       } else if (!localStorage.getItem('mainMovies')) {
