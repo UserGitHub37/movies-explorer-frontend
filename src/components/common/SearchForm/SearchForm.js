@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import './SearchForm.css';
 
-function SearchForm ({ name, onSearchMovies, onSetShortMovies }) {
-  let location = useLocation();
+function SearchForm ({ name, onSearchMovies, onSetShortMovies, pathname }) {
 
   const [searchText, setSearchText] = useState('');
   const [checked, setChecked] = useState(false);
@@ -11,25 +9,25 @@ function SearchForm ({ name, onSearchMovies, onSetShortMovies }) {
 
   useEffect(() => {
     setSearchText(() => {
-      if (location.pathname === '/movies') {
+      if (pathname === '/movies') {
         return localStorage.getItem('mainMoviesSearchText');
-      } else if (location.pathname === '/saved-movies') {
+      } else if (pathname === '/saved-movies') {
         return localStorage.getItem('savedMoviesSearchText');
       }
       return '';
     });
 
     setChecked(() => {
-      if (location.pathname === '/movies') {
+      if (pathname === '/movies') {
         return localStorage.getItem('isShortMainMovies') === 'true';
-      } else if (location.pathname === '/saved-movies') {
+      } else if (pathname === '/saved-movies') {
         return localStorage.getItem('isShortSavedMovies') === 'true';
       }
       return false;
     });
 
     setErrorMessage('');
-  }, [location.pathname])
+  }, [pathname])
 
   function handleChangeSearchText (e) {
     setSearchText(e.target.value);

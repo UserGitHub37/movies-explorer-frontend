@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import useViewport from '../../../hooks/useViewport';
 import Card from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
-function MoviesCardList ({ cards, onLikeCard, savedMovies }) {
-  let location = useLocation();
+function MoviesCardList ({ cards, onLikeCard, onRemoveCard, savedMovies, pathname, nameIdCard }) {
   const { width } = useViewport();
 
   const [isMoreButton, setMoreButton] = useState(false);
@@ -18,12 +16,12 @@ function MoviesCardList ({ cards, onLikeCard, savedMovies }) {
   };
 
   useEffect(() => {
-    if (location.pathname === '/movies') {
+    if (pathname === '/movies') {
       cards.length > numberOfCards ? setMoreButton(true) : setMoreButton(false);
     } else {
       setMoreButton(false);
     }
-  }, [cards.length, location.pathname, numberOfCards])
+  }, [cards.length, pathname, numberOfCards])
 
   useEffect(() => {
     if (width < breakpoint.sm && cards.length >= 5) {
@@ -56,12 +54,14 @@ function MoviesCardList ({ cards, onLikeCard, savedMovies }) {
   return (
     <section className="card-list" aria-label="Фильмы">
       <ul className="card-list__wrapper">
-        {cards.length > 0 && cards.slice(0, numberOfCards).map((card) => (
+        {cards.length > 0 && (((pathname === '/saved-movies') && cards) || cards.slice(0, numberOfCards)).map((card) => (
           <Card
-            key={card.id}
+            key={card[nameIdCard]}
             card={card}
             onLikeCard={onLikeCard}
+            onRemoveCard={onRemoveCard}
             savedMovies={savedMovies}
+            pathname={pathname}
           />
         ))}
       </ul>
