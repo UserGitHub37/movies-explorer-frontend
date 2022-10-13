@@ -25,8 +25,6 @@ import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
 
 function App() {
-  const checkboxStorageMainMovies = 'isShortMainMovies';
-  const checkboxStorageSavedMovies = 'isShortSavedMovies';
   const [loggedIn, setLoggedIn] = useState(undefined);
   const [currentUser, setCurrentUser] = useState({});
   const [mainMovies, setMainMovies] = useState([]);
@@ -58,7 +56,7 @@ function App() {
       const savedMoviesFromStorage = JSON.parse(localStorage.getItem('savedMovies'));
 
       if (checkArrayfulness(filteredInitialMovies)) {
-        filterByCheckbox(checkboxStorageMainMovies, filteredInitialMovies, setMainMovies);
+        filterByCheckbox('isShortMainMovies', filteredInitialMovies);
       } else {
         setMainMovies([]);
       }
@@ -79,15 +77,24 @@ function App() {
     }
   }, [loggedIn]);
 
+  useEffect(() => {
+    if (pathname === '/saved-movies') {
+      const savedMoviesFromStorage = JSON.parse(localStorage.getItem('savedMovies'));
+      if (checkArrayfulness(savedMoviesFromStorage)) {
+        setSavedMovies(savedMoviesFromStorage);
+      }
+    }
+  }, [pathname])
+
   function checkArrayfulness (array) {
     return Array.isArray(array) && array.length > 0;
   }
 
-  function filterByCheckbox (checkboxStorageName, initialArray, saveResultFunction) {
+  function filterByCheckbox (checkboxStorageName, initialArray) {
     if (localStorage.getItem(checkboxStorageName) === 'true') {
-      saveResultFunction(() => initialArray.filter((card) => card.duration < 40));
+      setMainMovies(() => initialArray.filter((card) => card.duration < 40));
     } else {
-      saveResultFunction(initialArray);
+      setMainMovies(initialArray);
     }
   }
 
@@ -120,9 +127,7 @@ function App() {
     localStorage.removeItem('token');
     localStorage.removeItem('initialMovies');
     localStorage.removeItem('mainMoviesSearchText');
-    localStorage.removeItem('savedMoviesSearchText');
     localStorage.removeItem('isShortMainMovies');
-    localStorage.removeItem('isShortSavedMovies');
     localStorage.removeItem('filteredInitialMovies');
     localStorage.removeItem('savedMovies');
     setLoggedIn(false);
@@ -143,21 +148,23 @@ function App() {
           .then((data) => {
             localStorage.setItem('initialMovies', JSON.stringify(data));
             const filteredInitialMovies = data.filter((card) => card.nameRU.toLowerCase().includes(searchText.toLowerCase()));
-            filterByCheckbox(checkboxStorageMainMovies, filteredInitialMovies, setMainMovies);
+            filterByCheckbox('isShortMainMovies', filteredInitialMovies);
             localStorage.setItem('filteredInitialMovies', JSON.stringify(filteredInitialMovies));
           })
           .catch(err => console.log(err))
           .finally(() => setPreloaderIsActive(false));
       } else {
         const filteredInitialMovies = initialMovies.filter((card) => card.nameRU.toLowerCase().includes(searchText.toLowerCase()));
-        filterByCheckbox(checkboxStorageMainMovies, filteredInitialMovies, setMainMovies);
+        filterByCheckbox('isShortMainMovies', filteredInitialMovies);
         localStorage.setItem('filteredInitialMovies', JSON.stringify(filteredInitialMovies));
       }
     }
 
     if (pathname === '/saved-movies') {
       if (searchText) {
-        const filteredSavedMovies = savedMovies.filter((card) => card.nameRU.toLowerCase().includes(searchText.toLowerCase()));
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        const savedMoviesFromStorage = JSON.parse(localStorage.getItem('savedMovies'));
+        const filteredSavedMovies = savedMoviesFromStorage.filter((card) => card.nameRU.toLowerCase().includes(searchText.toLowerCase()));
         setSavedMovies(filteredSavedMovies);
       }
     }
@@ -168,15 +175,18 @@ function App() {
       localStorage.setItem('isShortMainMovies', checked);
       const filteredInitialMovies = JSON.parse(localStorage.getItem('filteredInitialMovies'));
       if (checkArrayfulness(filteredInitialMovies)) {
-        filterByCheckbox(checkboxStorageMainMovies, filteredInitialMovies, setMainMovies);
+        filterByCheckbox('isShortMainMovies', filteredInitialMovies);
       }
     }
 
     if (pathname === '/saved-movies') {
-      localStorage.setItem('isShortSavedMovies', checked);
       const savedMoviesFromStorage = JSON.parse(localStorage.getItem('savedMovies'));
       if (checkArrayfulness(savedMoviesFromStorage)) {
-        filterByCheckbox(checkboxStorageSavedMovies, savedMoviesFromStorage, setSavedMovies);
+        if (checked) {
+          setSavedMovies(() => savedMoviesFromStorage.filter((card) => card.duration < 40));
+        } else {
+          setSavedMovies(savedMoviesFromStorage);
+        }
       }
     }
   }

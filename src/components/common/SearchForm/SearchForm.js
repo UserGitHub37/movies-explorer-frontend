@@ -11,8 +11,6 @@ function SearchForm ({ name, onSearchMovies, onSetShortMovies, pathname }) {
     setSearchText(() => {
       if (pathname === '/movies') {
         return localStorage.getItem('mainMoviesSearchText');
-      } else if (pathname === '/saved-movies') {
-        return localStorage.getItem('savedMoviesSearchText');
       }
       return '';
     });
@@ -20,8 +18,6 @@ function SearchForm ({ name, onSearchMovies, onSetShortMovies, pathname }) {
     setChecked(() => {
       if (pathname === '/movies') {
         return localStorage.getItem('isShortMainMovies') === 'true';
-      } else if (pathname === '/saved-movies') {
-        return localStorage.getItem('isShortSavedMovies') === 'true';
       }
       return false;
     });
