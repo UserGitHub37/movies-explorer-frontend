@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import useViewport from '../../../hooks/useViewport';
 import Card from '../MoviesCard/MoviesCard';
+import ContainerWrapper from '../ContainerWrapper/ContainerWrapper';
 import './MoviesCardList.css';
 
 function MoviesCardList ({ cards, onLikeCard, onRemoveCard, savedMovies, pathname, nameIdCard }) {
@@ -52,21 +53,23 @@ function MoviesCardList ({ cards, onLikeCard, onRemoveCard, savedMovies, pathnam
   }
 
   return (
-    <section className="card-list" aria-label="Фильмы">
-      <ul className="card-list__wrapper">
-        {cards.length > 0 && (((pathname === '/saved-movies') && cards) || cards.slice(0, numberOfCards)).map((card) => (
-          <Card
-            key={card[nameIdCard]}
-            card={card}
-            onLikeCard={onLikeCard}
-            onRemoveCard={onRemoveCard}
-            savedMovies={savedMovies}
-            pathname={pathname}
-          />
-        ))}
-      </ul>
-      {isMoreButton && <button className="card-list__more-button" onClick={handleClickMoreButton}>Ещё</button>}
-    </section>
+    <ContainerWrapper className={"container-wrapper__color_black container-wrapper__type_grow"}>
+      <section className="card-list" aria-label="Фильмы">
+        <ul className="card-list__wrapper">
+          {cards.length > 0 && (((pathname === '/saved-movies') && cards) || cards.slice(0, numberOfCards)).map((card) => (
+            <Card
+              key={card[nameIdCard]}
+              card={card}
+              onLikeCard={onLikeCard}
+              onRemoveCard={onRemoveCard}
+              savedMovies={savedMovies}
+              pathname={pathname}
+            />
+          ))}
+        </ul>
+        {isMoreButton && <button className="card-list__more-button" onClick={handleClickMoreButton}>Ещё</button>}
+      </section>
+    </ContainerWrapper>
   );
 }
 

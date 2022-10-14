@@ -162,7 +162,6 @@ function App() {
 
     if (pathname === '/saved-movies') {
       if (searchText) {
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         const savedMoviesFromStorage = JSON.parse(localStorage.getItem('savedMovies'));
         const filteredSavedMovies = savedMoviesFromStorage.filter((card) => card.nameRU.toLowerCase().includes(searchText.toLowerCase()));
         setSavedMovies(filteredSavedMovies);
@@ -243,17 +242,9 @@ function App() {
           element={
             <ProtectedRoute loggedIn={loggedIn}>
               <Header loggedIn={loggedIn} color={"black"} />
-              <ContainerWrapper className={"container-wrapper__color_black"}>
-                <SearchForm onSearchMovies={handleSearchMovies} onSetShortMovies={handleSetShortMovies} pathname={pathname} />
-              </ContainerWrapper>
-              <ContainerWrapper
-                className={
-                  "container-wrapper__color_black container-wrapper__type_grow"
-                }
-              >
-                <Preloader isActive={preloaderIsActive} />
-                <MoviesCardList cards={mainMovies} savedMovies={savedMovies} onLikeCard={handleLikeCard} pathname={pathname} nameIdCard={'id'} />
-              </ContainerWrapper>
+              <SearchForm onSearchMovies={handleSearchMovies} onSetShortMovies={handleSetShortMovies} pathname={pathname} />
+              <Preloader isActive={preloaderIsActive} />
+              <MoviesCardList cards={mainMovies} savedMovies={savedMovies} onLikeCard={handleLikeCard} pathname={pathname} nameIdCard={'id'} />
               <Footer />
             </ProtectedRoute>
           }
@@ -264,17 +255,9 @@ function App() {
           element={
             <ProtectedRoute loggedIn={loggedIn}>
               <Header loggedIn={loggedIn} color={"black"} />
-              <ContainerWrapper className={"container-wrapper__color_black"}>
-                <SearchForm onSearchMovies={handleSearchMovies} onSetShortMovies={handleSetShortMovies} pathname={pathname} />
-              </ContainerWrapper>
-              <ContainerWrapper
-                className={
-                  "container-wrapper__color_black container-wrapper__type_grow"
-                }
-              >
-                <Preloader isActive={preloaderIsActive} />
-                <MoviesCardList cards={savedMovies} savedMovies={savedMovies} onLikeCard={handleLikeCard} pathname={pathname} onRemoveCard={handleRemoveCard} nameIdCard={'movieId'} />
-              </ContainerWrapper>
+              <SearchForm onSearchMovies={handleSearchMovies} onSetShortMovies={handleSetShortMovies} pathname={pathname} />
+              <Preloader isActive={preloaderIsActive} />
+              <MoviesCardList cards={savedMovies} savedMovies={savedMovies} onLikeCard={handleLikeCard} pathname={pathname} onRemoveCard={handleRemoveCard} nameIdCard={'movieId'} />
               <Footer />
             </ProtectedRoute>
           }
