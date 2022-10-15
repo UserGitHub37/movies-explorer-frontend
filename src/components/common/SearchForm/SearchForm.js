@@ -54,6 +54,7 @@ function SearchForm ({ pageName, onSearchMovies }) {
   }
 
   function handleChangeCheckbox () {
+    localStorage.setItem('isShortMainMovies', JSON.stringify(!checked));
     onSearchMovies(pageName, !checked, searchText);
     setChecked((checked) => !checked);
   }

@@ -10,14 +10,16 @@ export function checkArrayfulness(array) {
 }
 
 export function filterMovies(movies, searchText, isShortMovies) {
+  const MAX_LENGTH_OF_A_SHORT_FILM = 40;
+
   if (checkArrayfulness(movies)) {
     return movies.filter(
       (card) => {
         if (searchText === '') {
-          return isShortMovies ? card.duration < 40 : true;
+          return isShortMovies ? card.duration < MAX_LENGTH_OF_A_SHORT_FILM : true;
         }
         return (card.nameRU.toLowerCase().includes(searchText.toLowerCase()) &&
-        (isShortMovies ? card.duration < 40 : true));
+        (isShortMovies ? card.duration < MAX_LENGTH_OF_A_SHORT_FILM : true));
       }
     );
   }

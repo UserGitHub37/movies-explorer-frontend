@@ -23,7 +23,10 @@ import Message from '../common/Message/Message';
 
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
-import { filterMovies, checkArrayfulness } from '../../utils/utils';
+import {
+  filterMovies,
+  checkArrayfulness,
+} from '../../utils/utils';
 
 const {
   SEARCH_ERRORS,
@@ -51,8 +54,9 @@ function App() {
           setLoggedIn(true);
         })
         .catch(err => {
-          handleSignOut();
           console.log(err);
+          localStorage.clear();
+          setLoggedIn(false);
         });
     } else {
       setLoggedIn(false);
@@ -120,12 +124,7 @@ function App() {
   }
 
   function handleSignOut() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('mainMovies');
-    localStorage.removeItem('mainMoviesSearchText');
-    localStorage.removeItem('isShortMainMovies');
-    localStorage.removeItem('filteredMainMovies');
-    localStorage.removeItem('savedMovies');
+    localStorage.clear();
     setLoggedIn(false);
     navigate('/');
   }
@@ -150,10 +149,9 @@ function App() {
             // throw new Error('Тестирую ошибку');
             const filteredMovies = filterMovies(data, searchText, checked);
             setMainDisplayedCards(filteredMovies);
+            localStorage.setItem('filteredMainMovies', JSON.stringify(filteredMovies));
 
-            if (filteredMovies.length) {
-              localStorage.setItem('filteredMainMovies', JSON.stringify(filteredMovies));
-            } else {
+            if (!filteredMovies.length) {
               setSearchErrorMessage(SEARCH_ERRORS.NOT_FOUND);
               setSearchErrorIsActive(true);
             }
@@ -169,10 +167,8 @@ function App() {
       } else {
         const filteredMovies = filterMovies(mainMovies, searchText, checked);
         setMainDisplayedCards(filteredMovies);
-
-        if (filteredMovies.length) {
-          localStorage.setItem('filteredMainMovies', JSON.stringify(filteredMovies));
-        } else {
+        localStorage.setItem('filteredMainMovies', JSON.stringify(filteredMovies));
+        if (!filteredMovies.length) {
           setSearchErrorMessage(SEARCH_ERRORS.NOT_FOUND);
           setSearchErrorIsActive(true);
         }
@@ -183,7 +179,7 @@ function App() {
       const filteredMovies = filterMovies(savedMovies, searchText, checked);
       setSavedDisplayedCards(filteredMovies);
 
-      if (filteredMovies.length === 0 ) {
+      if (!filteredMovies.length) {
         setSearchErrorMessage(SEARCH_ERRORS.NOT_FOUND);
         setSearchErrorIsActive(true);
       }
