@@ -3,7 +3,7 @@ import "./MoviesCard.css";
 import { convertMinsToHrsMins } from "../../../utils/utils";
 const validator = require('validator');
 
-function Card({ card, onLikeCard, savedMovies, pathname, onRemoveCard }) {
+function Card({ card, onLikeCard, savedMovies, pageName, onRemoveCard }) {
   const [buttonClassName, setButtonClassName] = useState("card__like-btn");
 
   const trailerLink = (() => {
@@ -48,7 +48,7 @@ function Card({ card, onLikeCard, savedMovies, pathname, onRemoveCard }) {
 
   return (
     <li className="card">
-      {pathname === "/movies" && (
+      {pageName === "movies" && (
         <>
           <div className="card__image-wrapper">
             <img
@@ -69,7 +69,7 @@ function Card({ card, onLikeCard, savedMovies, pathname, onRemoveCard }) {
         </>
       )}
 
-      {pathname === "/saved-movies" && (
+      {pageName === "saved-movies" && (
         <>
           <div className="card__image-wrapper">
             <img

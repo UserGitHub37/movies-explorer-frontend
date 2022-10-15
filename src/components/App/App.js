@@ -4,7 +4,6 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 import './App.css';
 import ProtectedRoute from '../common/ProtectedRoute/ProtectedRoute';
-import ContainerWrapper from '../common/ContainerWrapper/ContainerWrapper';
 import Header from '../Header/Header';
 import Promo from '../Promo/Promo';
 import MainPageNav from '../Header/MainPageNav/MainPageNav';
@@ -20,19 +19,29 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import Page404 from '../Page404/Page404';
+import Message from '../common/Message/Message';
 
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
+import { filterMovies, checkArrayfulness } from '../../utils/utils';
+
+const {
+  SEARCH_ERRORS,
+} = require('../../utils/constants');
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(undefined);
   const [currentUser, setCurrentUser] = useState({});
   const [mainMovies, setMainMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [mainDisplayedCards, setMainDisplayedCards] = useState([]);
+  const [savedDisplayedCards, setSavedDisplayedCards] = useState([]);
   const [preloaderIsActive, setPreloaderIsActive] = useState(false);
+  const [searchErrorIsActive, setSearchErrorIsActive] = useState(false);
+  const [searchErrorMessage, setSearchErrorMessage] = useState('');
 
   const navigate = useNavigate();
-  let { pathname } = useLocation();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -42,7 +51,7 @@ function App() {
           setLoggedIn(true);
         })
         .catch(err => {
-          setLoggedIn(false);
+          handleSignOut();
           console.log(err);
         });
     } else {
@@ -52,51 +61,38 @@ function App() {
 
   useEffect(() => {
     if (loggedIn) {
-      const filteredInitialMovies = JSON.parse(localStorage.getItem('filteredInitialMovies'));
+      const mainMoviesFromStorage = JSON.parse(localStorage.getItem('mainMovies'));
+      const filteredMainMoviesFromStorage = JSON.parse(localStorage.getItem('filteredMainMovies'));
       const savedMoviesFromStorage = JSON.parse(localStorage.getItem('savedMovies'));
 
-      if (checkArrayfulness(filteredInitialMovies)) {
-        filterByCheckbox('isShortMainMovies', filteredInitialMovies);
-      } else {
-        setMainMovies([]);
+      if (checkArrayfulness(mainMoviesFromStorage)) {
+        setMainMovies(mainMoviesFromStorage);
+      }
+
+      if (checkArrayfulness(filteredMainMoviesFromStorage)) {
+        setMainDisplayedCards(filteredMainMoviesFromStorage);
       }
 
       if (checkArrayfulness(savedMoviesFromStorage)) {
         setSavedMovies(savedMoviesFromStorage);
+        setSavedDisplayedCards(savedMoviesFromStorage);
       } else {
-        setPreloaderIsActive(true);
         mainApi.getSavedMoviesList()
           .then((data) => {
-            localStorage.setItem('savedMovies', JSON.stringify(data));
             setSavedMovies(data);
+            setSavedDisplayedCards(data);
+            localStorage.setItem('savedMovies', JSON.stringify(data));
           })
-          .catch(err => console.log(err))
-          .finally(() => setPreloaderIsActive(false));
+          .catch(err => console.log(err));
       }
-
     }
   }, [loggedIn]);
 
   useEffect(() => {
     if (pathname === '/saved-movies') {
-      const savedMoviesFromStorage = JSON.parse(localStorage.getItem('savedMovies'));
-      if (checkArrayfulness(savedMoviesFromStorage)) {
-        setSavedMovies(savedMoviesFromStorage);
-      }
+      setSavedDisplayedCards(savedMovies);
     }
-  }, [pathname])
-
-  function checkArrayfulness (array) {
-    return Array.isArray(array) && array.length > 0;
-  }
-
-  function filterByCheckbox (checkboxStorageName, initialArray) {
-    if (localStorage.getItem(checkboxStorageName) === 'true') {
-      setMainMovies(() => initialArray.filter((card) => card.duration < 40));
-    } else {
-      setMainMovies(initialArray);
-    }
-  }
+  }, [pathname, savedMovies])
 
   function handleLogin(data) {
     mainApi.authorize(data)
@@ -125,95 +121,98 @@ function App() {
 
   function handleSignOut() {
     localStorage.removeItem('token');
-    localStorage.removeItem('initialMovies');
+    localStorage.removeItem('mainMovies');
     localStorage.removeItem('mainMoviesSearchText');
     localStorage.removeItem('isShortMainMovies');
-    localStorage.removeItem('filteredInitialMovies');
+    localStorage.removeItem('filteredMainMovies');
     localStorage.removeItem('savedMovies');
     setLoggedIn(false);
     navigate('/');
   }
 
-  function handleSearchMovies(searchText) {
-    setMainMovies([]);
-    const initialMovies = JSON.parse(localStorage.getItem('initialMovies'));
+  function handleSearchMovies(pageName, checked, searchText) {
+    setSearchErrorMessage('');
+    setSearchErrorIsActive(false);
 
-    if (pathname === '/movies') {
+    if (pageName === 'movies') {
       localStorage.setItem('mainMoviesSearchText', searchText);
+
       if (!searchText) {
-        localStorage.removeItem('filteredInitialMovies');
-      } else if (!initialMovies) {
+        localStorage.removeItem('filteredMainMovies');
+        localStorage.removeItem('mainMoviesSearchText');
+        return;
+      }
+
+      if (!checkArrayfulness(mainMovies)) {
         setPreloaderIsActive(true);
         moviesApi.getMoviesList()
           .then((data) => {
-            localStorage.setItem('initialMovies', JSON.stringify(data));
-            const filteredInitialMovies = data.filter((card) => card.nameRU.toLowerCase().includes(searchText.toLowerCase()));
-            filterByCheckbox('isShortMainMovies', filteredInitialMovies);
-            localStorage.setItem('filteredInitialMovies', JSON.stringify(filteredInitialMovies));
+            // throw new Error('Тестирую ошибку');
+            const filteredMovies = filterMovies(data, searchText, checked);
+            setMainDisplayedCards(filteredMovies);
+
+            if (filteredMovies.length) {
+              localStorage.setItem('filteredMainMovies', JSON.stringify(filteredMovies));
+            } else {
+              setSearchErrorMessage(SEARCH_ERRORS.NOT_FOUND);
+              setSearchErrorIsActive(true);
+            }
+            setMainMovies(data);
+            localStorage.setItem('mainMovies', JSON.stringify(data));
           })
-          .catch(err => console.log(err))
+          .catch(err => {
+            setSearchErrorMessage(SEARCH_ERRORS.SERVER_IS_NOT_AVAILABLE);
+            setSearchErrorIsActive(true);
+            console.log(err)
+          })
           .finally(() => setPreloaderIsActive(false));
       } else {
-        const filteredInitialMovies = initialMovies.filter((card) => card.nameRU.toLowerCase().includes(searchText.toLowerCase()));
-        filterByCheckbox('isShortMainMovies', filteredInitialMovies);
-        localStorage.setItem('filteredInitialMovies', JSON.stringify(filteredInitialMovies));
-      }
-    }
+        const filteredMovies = filterMovies(mainMovies, searchText, checked);
+        setMainDisplayedCards(filteredMovies);
 
-    if (pathname === '/saved-movies') {
-      if (searchText) {
-        const savedMoviesFromStorage = JSON.parse(localStorage.getItem('savedMovies'));
-        const filteredSavedMovies = savedMoviesFromStorage.filter((card) => card.nameRU.toLowerCase().includes(searchText.toLowerCase()));
-        setSavedMovies(filteredSavedMovies);
-      }
-    }
-  }
-
-  function handleSetShortMovies(checked) {
-    if (pathname === '/movies') {
-      localStorage.setItem('isShortMainMovies', checked);
-      const filteredInitialMovies = JSON.parse(localStorage.getItem('filteredInitialMovies'));
-      if (checkArrayfulness(filteredInitialMovies)) {
-        filterByCheckbox('isShortMainMovies', filteredInitialMovies);
-      }
-    }
-
-    if (pathname === '/saved-movies') {
-      const savedMoviesFromStorage = JSON.parse(localStorage.getItem('savedMovies'));
-      if (checkArrayfulness(savedMoviesFromStorage)) {
-        if (checked) {
-          setSavedMovies(() => savedMoviesFromStorage.filter((card) => card.duration < 40));
+        if (filteredMovies.length) {
+          localStorage.setItem('filteredMainMovies', JSON.stringify(filteredMovies));
         } else {
-          setSavedMovies(savedMoviesFromStorage);
+          setSearchErrorMessage(SEARCH_ERRORS.NOT_FOUND);
+          setSearchErrorIsActive(true);
         }
+      }
+    }
+
+    if (pageName === 'saved-movies') {
+      const filteredMovies = filterMovies(savedMovies, searchText, checked);
+      setSavedDisplayedCards(filteredMovies);
+
+      if (filteredMovies.length === 0 ) {
+        setSearchErrorMessage(SEARCH_ERRORS.NOT_FOUND);
+        setSearchErrorIsActive(true);
       }
     }
   }
 
   function handleLikeCard(card) {
-    const savedMoviesFromStorage = JSON.parse(localStorage.getItem('savedMovies'));
-    const isSaved = savedMoviesFromStorage.some(savedMovie => savedMovie.movieId === card.movieId);
+    const isSaved = savedMovies.some(savedMovie => savedMovie.movieId === card.movieId);
 
     if (isSaved) {
       handleRemoveCard(card.movieId);
     } else {
       mainApi.saveMovie(card)
       .then((card) => {
-        const updatedSavedMovies = savedMoviesFromStorage.concat(card);
-        localStorage.setItem('savedMovies', JSON.stringify(updatedSavedMovies));
-        setSavedMovies(updatedSavedMovies);
+        localStorage.setItem('savedMovies', JSON.stringify([ ...savedMovies, card ]));
+        setSavedMovies((movies) => [...movies, card]);
+        setSavedDisplayedCards((cards) => [...cards, card]);
       })
       .catch(err => console.log(err));
     }
   }
 
   function handleRemoveCard (cardId) {
-    const savedMoviesFromStorage = JSON.parse(localStorage.getItem('savedMovies'));
     mainApi.removeSavedMovie(cardId)
       .then(() => {
-        const updatedSavedMovies = savedMoviesFromStorage.filter((savedMovie) => savedMovie.movieId !== cardId);
-        localStorage.setItem('savedMovies', JSON.stringify(updatedSavedMovies));
+        const updatedSavedMovies = savedMovies.filter((savedMovie) => savedMovie.movieId !== cardId);
         setSavedMovies(updatedSavedMovies);
+        localStorage.setItem('savedMovies', JSON.stringify(updatedSavedMovies));
+        setSavedDisplayedCards((cards) => cards.filter((card) => card.movieId !== cardId));
       })
       .catch(err => console.log(err));
   }
@@ -242,9 +241,10 @@ function App() {
           element={
             <ProtectedRoute loggedIn={loggedIn}>
               <Header loggedIn={loggedIn} color={"black"} />
-              <SearchForm onSearchMovies={handleSearchMovies} onSetShortMovies={handleSetShortMovies} pathname={pathname} />
+              <SearchForm pageName={"movies"} onSearchMovies={handleSearchMovies} />
+              <Message isActive={searchErrorIsActive} message={searchErrorMessage} />
               <Preloader isActive={preloaderIsActive} />
-              <MoviesCardList cards={mainMovies} savedMovies={savedMovies} onLikeCard={handleLikeCard} pathname={pathname} nameIdCard={'id'} />
+              <MoviesCardList cards={mainDisplayedCards} savedMovies={savedMovies} onLikeCard={handleLikeCard} pageName={"movies"} nameIdCard={'id'} />
               <Footer />
             </ProtectedRoute>
           }
@@ -255,9 +255,10 @@ function App() {
           element={
             <ProtectedRoute loggedIn={loggedIn}>
               <Header loggedIn={loggedIn} color={"black"} />
-              <SearchForm onSearchMovies={handleSearchMovies} onSetShortMovies={handleSetShortMovies} pathname={pathname} />
+              <SearchForm pageName={"saved-movies"} onSearchMovies={handleSearchMovies} />
+              <Message isActive={searchErrorIsActive} message={searchErrorMessage} />
               <Preloader isActive={preloaderIsActive} />
-              <MoviesCardList cards={savedMovies} savedMovies={savedMovies} onLikeCard={handleLikeCard} pathname={pathname} onRemoveCard={handleRemoveCard} nameIdCard={'movieId'} />
+              <MoviesCardList cards={savedDisplayedCards} savedMovies={savedMovies} onLikeCard={handleLikeCard} pageName={"saved-movies"} onRemoveCard={handleRemoveCard} nameIdCard={'movieId'} />
               <Footer />
             </ProtectedRoute>
           }

@@ -4,7 +4,7 @@ import Card from '../MoviesCard/MoviesCard';
 import ContainerWrapper from '../ContainerWrapper/ContainerWrapper';
 import './MoviesCardList.css';
 
-function MoviesCardList ({ cards, onLikeCard, onRemoveCard, savedMovies, pathname, nameIdCard }) {
+function MoviesCardList ({ cards, onLikeCard, onRemoveCard, savedMovies, pageName, nameIdCard }) {
   const { width } = useViewport();
 
   const [isMoreButton, setMoreButton] = useState(false);
@@ -17,12 +17,12 @@ function MoviesCardList ({ cards, onLikeCard, onRemoveCard, savedMovies, pathnam
   };
 
   useEffect(() => {
-    if (pathname === '/movies') {
+    if (pageName === 'movies') {
       cards.length > numberOfCards ? setMoreButton(true) : setMoreButton(false);
     } else {
       setMoreButton(false);
     }
-  }, [cards.length, pathname, numberOfCards])
+  }, [cards.length, pageName, numberOfCards])
 
   useEffect(() => {
     if (width < breakpoint.sm && cards.length >= 5) {
@@ -56,14 +56,14 @@ function MoviesCardList ({ cards, onLikeCard, onRemoveCard, savedMovies, pathnam
     <ContainerWrapper className={"container-wrapper__color_black container-wrapper__type_grow"}>
       <section className="card-list" aria-label="Фильмы">
         <ul className="card-list__wrapper">
-          {cards.length > 0 && (((pathname === '/saved-movies') && cards) || cards.slice(0, numberOfCards)).map((card) => (
+          {cards.length > 0 && (((pageName === 'saved-movies') && cards) || cards.slice(0, numberOfCards)).map((card) => (
             <Card
               key={card[nameIdCard]}
               card={card}
               onLikeCard={onLikeCard}
               onRemoveCard={onRemoveCard}
               savedMovies={savedMovies}
-              pathname={pathname}
+              pageName={pageName}
             />
           ))}
         </ul>

@@ -19,3 +19,7 @@
 .container-wrapper__type_grow {
   flex-grow: 1;
 }
+
+.container-wrapper__type_centre {
+  justify-content: center;
+}
