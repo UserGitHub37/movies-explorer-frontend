@@ -6,7 +6,7 @@ import ContainerWrapper from '../common/ContainerWrapper/ContainerWrapper';
 
 import './Profile.css';
 
-function Profile ({ onSignOut }) {
+function Profile ({ onSignOut, onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
 
   const navigate = useNavigate();
@@ -25,6 +25,10 @@ function Profile ({ onSignOut }) {
   function onSubmit (e) {
     e.preventDefault();
     navigate('/movies');
+    onUpdateUser({
+      name,
+      email,
+    });
   }
 
   return (

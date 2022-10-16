@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import "./MoviesCard.css";
 import { convertMinsToHrsMins } from "../../../utils/utils";
-const validator = require('validator');
+const isURL = require('validator/lib/isURL');
+
 
 function Card({ card, onLikeCard, savedMovies, pageName, onRemoveCard }) {
   const [buttonClassName, setButtonClassName] = useState("card__like-btn");
 
   const trailerLink = (() => {
-    if (validator.isURL(card.trailerLink)) {
+    if (isURL(card.trailerLink)) {
       return card.trailerLink;
     }
     return `https://api.nomoreparties.co/${card.image.url}`;

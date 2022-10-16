@@ -35,6 +35,14 @@ class MainApi {
     }).then(this._checkPromise);
   }
 
+  updateUserInfo(data) {
+    return fetch(`${this._baseUrl}users/me`, {
+        method: 'PATCH',
+        headers: { ...this._headers, authorization: `Bearer ${localStorage.getItem('token')}`},
+        body: JSON.stringify(data),
+    }).then(this._checkPromise);
+  }
+
   getSavedMoviesList() {
     return fetch(`${this._baseUrl}movies`, {
       method: 'GET',

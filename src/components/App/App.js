@@ -20,6 +20,7 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import Page404 from '../Page404/Page404';
 import Message from '../common/Message/Message';
+import InfoTooltip from '../common/Popup/InfoTooltip/InfoTooltip';
 
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from '../../utils/MainApi';
@@ -42,6 +43,9 @@ function App() {
   const [preloaderIsActive, setPreloaderIsActive] = useState(false);
   const [searchErrorIsActive, setSearchErrorIsActive] = useState(false);
   const [searchErrorMessage, setSearchErrorMessage] = useState('');
+  const [popupMessageText, setPopupMessageText] = useState('');
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+  const [isSuccessfulTooltip, setIsSuccessfulTooltip] = useState(false);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -121,6 +125,27 @@ function App() {
         })
       })
       .catch(err => console.log(err));
+  }
+
+
+  function handleUpdateUser(data) {
+    mainApi.updateUserInfo(data)
+    .then((userData) => {
+      setIsSuccessfulTooltip(true)
+      setCurrentUser(userData);
+      setPopupMessageText('Ваши данные успешно изменены');
+      setIsInfoTooltipPopupOpen(true);
+    })
+    .catch(err => {
+      setIsSuccessfulTooltip(false)
+      setPopupMessageText('Во время запроса произошла ошибка');
+      setIsInfoTooltipPopupOpen(true);
+      console.log(err);
+    })
+  }
+
+  function closeInfoTooltipPopup() {
+    setIsInfoTooltipPopupOpen(false);
   }
 
   function handleSignOut() {
@@ -283,13 +308,16 @@ function App() {
           element={
             <ProtectedRoute loggedIn={loggedIn}>
               <Header loggedIn={loggedIn} color={"black"} />
-              <Profile onSignOut={handleSignOut} />
+              <Profile onSignOut={handleSignOut} onUpdateUser={handleUpdateUser} />
             </ProtectedRoute>
           }
         />
 
         <Route path="*" element={<Page404 />} />
       </Routes>
+
+      <InfoTooltip isSuccess={isSuccessfulTooltip} message={popupMessageText} isOpen={isInfoTooltipPopupOpen} onClose={closeInfoTooltipPopup} />
+
     </CurrentUserContext.Provider>
   );
 }
