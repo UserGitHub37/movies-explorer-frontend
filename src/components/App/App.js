@@ -113,6 +113,12 @@ function App() {
             navigate('/movies');
           })
       })
+      .catch(async (err) => {
+        const res = await err.json();
+        setIsSuccessfulTooltip(false);
+        setPopupMessageText(res.message);
+        setIsInfoTooltipPopupOpen(true);
+      })
       .catch(err => console.log(err));
   }
 
@@ -124,24 +130,30 @@ function App() {
           password: data.password,
         })
       })
+      .catch(async (err) => {
+        const res = await err.json();
+        setIsSuccessfulTooltip(false);
+        setPopupMessageText(res.message);
+        setIsInfoTooltipPopupOpen(true);
+      })
       .catch(err => console.log(err));
   }
-
 
   function handleUpdateUser(data) {
     mainApi.updateUserInfo(data)
     .then((userData) => {
-      setIsSuccessfulTooltip(true)
-      setCurrentUser(userData);
+      setIsSuccessfulTooltip(true);
       setPopupMessageText('Ваши данные успешно изменены');
+      setCurrentUser(userData);
       setIsInfoTooltipPopupOpen(true);
     })
-    .catch(err => {
-      setIsSuccessfulTooltip(false)
-      setPopupMessageText('Во время запроса произошла ошибка');
+    .catch(async (err) => {
+      const res = await err.json();
+      setIsSuccessfulTooltip(false);
+      setPopupMessageText(res.message);
       setIsInfoTooltipPopupOpen(true);
-      console.log(err);
     })
+    .catch(err => console.log(err));
   }
 
   function closeInfoTooltipPopup() {
