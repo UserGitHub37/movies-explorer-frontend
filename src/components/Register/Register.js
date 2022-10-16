@@ -6,7 +6,7 @@ import logoPath from '../../images/header-logo.svg';
 
 import './Register.css';
 
-function Register ({ onRegister }) {
+function Register ({ onRegister, serverMessage }) {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -40,9 +40,7 @@ function Register ({ onRegister }) {
   }
 
   return (
-    <ContainerWrapper
-      className={"container-wrapper__color_black container-wrapper__type_grow"}
-    >
+    <ContainerWrapper className={"container-wrapper__color_black container-wrapper__type_grow"}>
       <div className="register">
         <Link to="/" className="register__logo-link">
           <img src={logoPath} alt="Логотип сайта" className="register__logo" />
@@ -105,9 +103,12 @@ function Register ({ onRegister }) {
               <span className="register__error-message register-password-input-error">Что-то пошло не так...</span>
             </label>
           </fieldset>
-          <button type="submit" className="register__submit-btn">
-            Зарегистрироваться
-          </button>
+          <div className="register__btn-wrap">
+            <span className={`register__server-message${serverMessage.isError && " register__server-message_type_error"}`}>{serverMessage.text}</span>
+            <button type="submit" className="register__submit-btn">
+              Зарегистрироваться
+            </button>
+          </div>
         </form>
         <p className="register__footnote">Уже зарегистрированы?&ensp;<Link to="/signin" className="register__footnote-link">Войти</Link></p>
       </div>

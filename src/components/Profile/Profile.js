@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 import ContainerWrapper from '../common/ContainerWrapper/ContainerWrapper';
@@ -8,8 +7,6 @@ import './Profile.css';
 
 function Profile ({ onSignOut, onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
-
-  const navigate = useNavigate();
 
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email);
@@ -24,7 +21,6 @@ function Profile ({ onSignOut, onUpdateUser }) {
 
   function onSubmit (e) {
     e.preventDefault();
-    navigate('/movies');
     onUpdateUser({
       name,
       email,

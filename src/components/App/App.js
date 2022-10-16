@@ -43,9 +43,11 @@ function App() {
   const [preloaderIsActive, setPreloaderIsActive] = useState(false);
   const [searchErrorIsActive, setSearchErrorIsActive] = useState(false);
   const [searchErrorMessage, setSearchErrorMessage] = useState('');
-  const [popupMessageText, setPopupMessageText] = useState('');
+  const [serverMessage, setServerMessage] = useState({
+    text: '',
+    isError: false,
+  });
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
-  const [isSuccessfulTooltip, setIsSuccessfulTooltip] = useState(false);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -125,8 +127,10 @@ function App() {
       })
       .catch(async (err) => {
         const res = await err.json();
-        setIsSuccessfulTooltip(false);
-        setPopupMessageText(res.message);
+        setServerMessage({
+          text: res.message,
+          isError: true,
+        });
         setIsInfoTooltipPopupOpen(true);
       })
       .catch(err => console.log(err));
@@ -142,8 +146,10 @@ function App() {
       })
       .catch(async (err) => {
         const res = await err.json();
-        setIsSuccessfulTooltip(false);
-        setPopupMessageText(res.message);
+        setServerMessage({
+          text: res.message,
+          isError: true,
+        });
         setIsInfoTooltipPopupOpen(true);
       })
       .catch(err => console.log(err));
@@ -152,15 +158,20 @@ function App() {
   function handleUpdateUser(data) {
     mainApi.updateUserInfo(data)
     .then((userData) => {
-      setIsSuccessfulTooltip(true);
-      setPopupMessageText('Ваши данные успешно изменены');
+      setServerMessage({
+        text: 'Ваши данные успешно изменены',
+        isError: false,
+      });
       setCurrentUser(userData);
       setIsInfoTooltipPopupOpen(true);
+      navigate('/movies');
     })
     .catch(async (err) => {
       const res = await err.json();
-      setIsSuccessfulTooltip(false);
-      setPopupMessageText(res.message);
+      setServerMessage({
+        text: res.message,
+        isError: true,
+      });
       setIsInfoTooltipPopupOpen(true);
     })
     .catch(err => console.log(err));
@@ -183,9 +194,11 @@ function App() {
     setPreloaderIsActive(false);
     setSearchErrorIsActive(false);
     setSearchErrorMessage('');
-    setPopupMessageText('');
+    setServerMessage({
+      text: '',
+      isError: false,
+    });
     setIsInfoTooltipPopupOpen(false);
-    setIsSuccessfulTooltip(false);
   }
 
   function handleSearchMovies(pageName, checked, searchText) {
@@ -325,7 +338,7 @@ function App() {
             loggedIn ? (
               <Navigate to="/" />
             ) : (
-              <Register onRegister={handleRegister} />
+              <Register onRegister={handleRegister} serverMessage={serverMessage} />
             )
           }
         />
@@ -333,7 +346,7 @@ function App() {
         <Route
           path="/signin"
           element={
-            loggedIn ? <Navigate to="/" /> : <Login onLogin={handleLogin} />
+            loggedIn ? <Navigate to="/" /> : <Login onLogin={handleLogin} serverMessage={serverMessage} />
           }
         />
 
@@ -342,7 +355,7 @@ function App() {
           element={
             <ProtectedRoute loggedIn={loggedIn}>
               <Header loggedIn={loggedIn} color={"black"} />
-              <Profile onSignOut={handleSignOut} onUpdateUser={handleUpdateUser} />
+              <Profile onSignOut={handleSignOut} onUpdateUser={handleUpdateUser} serverMessage={serverMessage} />
             </ProtectedRoute>
           }
         />
@@ -350,7 +363,7 @@ function App() {
         <Route path="*" element={<Page404 />} />
       </Routes>
 
-      <InfoTooltip isSuccess={isSuccessfulTooltip} message={popupMessageText} isOpen={isInfoTooltipPopupOpen} onClose={closeInfoTooltipPopup} />
+      <InfoTooltip message={serverMessage} isOpen={isInfoTooltipPopupOpen} onClose={closeInfoTooltipPopup} />
 
     </CurrentUserContext.Provider>
   );
