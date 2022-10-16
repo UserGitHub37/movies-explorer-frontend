@@ -4,11 +4,22 @@
   padding-bottom: 14px;
 }
 
+.card__link {
+  transition: opacity 0.2s ease;
+}
+
+.card__link:hover {
+  opacity: 0.6;
+}
+
 .card__image {
   display: block;
   width: 100%;
   height: calc((100vw - 10px - 10px) / 1.786);
   object-fit: contain;
+  object-position: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 @media screen and (min-width: 630px) {

@@ -51,13 +51,13 @@ function Card({ card, onLikeCard, savedMovies, pageName, onRemoveCard }) {
     <li className="card">
       {pageName === "movies" && (
         <>
-          <div className="card__image-wrapper">
+          <a href={trailerLink} className="card__link" target="_blank" rel="noreferrer">
             <img
               src={`https://api.nomoreparties.co/${card.image.url}`}
               alt={card.nameRU}
               className="card__image"
             />
-          </div>
+          </a>
           <div className="card__caption-wrapper">
             <h2 className="card__title">{card.nameRU}</h2>
             <button
@@ -72,13 +72,13 @@ function Card({ card, onLikeCard, savedMovies, pageName, onRemoveCard }) {
 
       {pageName === "saved-movies" && (
         <>
-          <div className="card__image-wrapper">
+          <a href={trailerLink} className="card__link"  target="_blank" rel="noreferrer">
             <img
               src={card.image}
               alt={card.nameRU}
               className="card__image"
             />
-          </div>
+          </a>
           <div className="card__caption-wrapper">
             <h2 className="card__title">{card.nameRU}</h2>
             <button
