@@ -37,6 +37,20 @@ function SearchForm ({ pageName, onSearchMovies }) {
     setErrorMessage('');
   }, [pageName])
 
+  useEffect(() => {
+
+    if (!errorMessage) return;
+
+    const clearTextField = () => {
+      setErrorMessage('');
+    }
+
+    document.addEventListener('input', clearTextField)
+
+    return () => document.removeEventListener('input', clearTextField)
+
+  }, [errorMessage, searchText, pageName])
+
   function handleChangeSearchText (e) {
     setSearchText(e.target.value);
   }

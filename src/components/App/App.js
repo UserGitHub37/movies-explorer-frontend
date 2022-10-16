@@ -102,6 +102,16 @@ function App() {
     }
   }, [pathname, savedMovies])
 
+  useEffect(() => {
+    if (!searchErrorIsActive) return;
+
+    setTimeout(() => {
+      setSearchErrorIsActive(false);
+      setSearchErrorMessage(false);
+    }, 8000);
+
+  }, [searchErrorIsActive])
+
   function handleLogin(data) {
     mainApi.authorize(data)
       .then((res) => {
@@ -164,6 +174,18 @@ function App() {
     localStorage.clear();
     setLoggedIn(false);
     navigate('/');
+    setLoggedIn(undefined);
+    setCurrentUser({});
+    setMainMovies([]);
+    setSavedMovies([]);
+    setMainDisplayedCards([]);
+    setSavedDisplayedCards([]);
+    setPreloaderIsActive(false);
+    setSearchErrorIsActive(false);
+    setSearchErrorMessage('');
+    setPopupMessageText('');
+    setIsInfoTooltipPopupOpen(false);
+    setIsSuccessfulTooltip(false);
   }
 
   function handleSearchMovies(pageName, checked, searchText) {
@@ -183,7 +205,7 @@ function App() {
         setPreloaderIsActive(true);
         moviesApi.getMoviesList()
           .then((data) => {
-            // throw new Error('Тестирую ошибку');
+            // throw new Error('Ошибка для тестирования приложения при возникновении ошибок во время запроса');
             const filteredMovies = filterMovies(data, searchText, checked);
             setMainDisplayedCards(filteredMovies);
             localStorage.setItem('filteredMainMovies', JSON.stringify(filteredMovies));
