@@ -92,7 +92,7 @@
 .profile__input-label {
   display: grid;
   grid-template-columns: 1fr;
-  margin-bottom: 7px;
+  margin-bottom: 5px;
 }
 
 .profile__subtitle {
@@ -104,12 +104,6 @@
   color: #FFF;
   margin: 0;
   width: 40px;
-}
-
-@media screen and (min-width: 768px) {
-  .profile__subtitle {
-
-  }
 }
 
 .profile__input {
@@ -142,7 +136,28 @@
   display: block;
   font-size: 10px;
   line-height: 11px;
+  box-sizing: border-box;
+  padding-top: 2px;
   min-height: 11px;
+  color: #EE3465;
+}
+
+.profile__btn-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 115px;
+}
+
+.profile__server-message {
+  font-size: 10px;
+  line-height: 12px;
+  color: #3DDC84;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.profile__server-message_type_error {
   color: #EE3465;
 }
 

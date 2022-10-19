@@ -1,30 +1,47 @@
-import { useState, useContext } from 'react';
+import { useEffect, useContext, useRef } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import useFormWithValidation from '../../hooks/useFormWithValidation';
 
 import ContainerWrapper from '../common/ContainerWrapper/ContainerWrapper';
-
+import { nameRegExp, emailRegExp } from '../../utils/constants';
 import './Profile.css';
 
-function Profile ({ onSignOut, onUpdateUser }) {
+function Profile ({ onSignOut, onUpdateUser, serverMessage }) {
   const currentUser = useContext(CurrentUserContext);
+  const formRef = useRef();
 
-  const [name, setName] = useState(currentUser.name);
-  const [email, setEmail] = useState(currentUser.email);
+  const {
+    values,
+    errors,
+    isValid,
+    handleChange,
+    resetForm,
+  } = useFormWithValidation();
 
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
+  useEffect(() => {
+    const form = formRef.current;
+    function disableInputHints (e) {
+      e.preventDefault();
+    }
+    form.addEventListener('invalid', disableInputHints, true);
+    return () => form.removeEventListener('invalid', disableInputHints);
+  }, []);
 
-  function handleChangeEmail(e) {
-    setEmail(() => e.target.value.toLowerCase());
-  }
+  useEffect(() => {
+    resetForm({
+      username: currentUser.name,
+      email: currentUser.email,
+  })
+}, []);
 
   function onSubmit (e) {
     e.preventDefault();
-    onUpdateUser({
-      name,
-      email,
-    });
+    if (isValid) {
+      onUpdateUser({
+        name: values.username,
+        email: values.email,
+      });
+    }
   }
 
   return (
@@ -39,6 +56,7 @@ function Profile ({ onSignOut, onUpdateUser }) {
           action="#"
           name="profile"
           onSubmit={onSubmit}
+          ref={formRef}
         >
           <fieldset className="profile__fieldset">
             <label className="profile__input-label">
@@ -51,11 +69,12 @@ function Profile ({ onSignOut, onUpdateUser }) {
                 placeholder="Введите имя"
                 minLength="2"
                 maxLength="30"
+                value={values.username ? values.username : ""}
+                onChange={handleChange}
                 required
-                value={name ? name : ""}
-                onChange={handleChangeName}
+                pattern={nameRegExp}
               />
-              <span className="profile__error-message profile-name-input-error"></span>
+              <span className="profile__error-message profile-name-input-error">{errors.username ? errors.username : ""}</span>
             </label>
             <label className="profile__input-label">
               <p className="profile__subtitle">E-mail</p>
@@ -67,14 +86,18 @@ function Profile ({ onSignOut, onUpdateUser }) {
                 placeholder="Введите E-mail"
                 minLength='5'
                 maxLength='40'
+                value={values.email ? values.email : ""}
+                onChange={handleChange}
                 required
-                value={email ? email : ""}
-                onChange={handleChangeEmail}
+                pattern={emailRegExp}
               />
-              <span className="profile__error-message profile-email-input-error"></span>
+              <span className="profile__error-message profile-email-input-error">{errors.email ? errors.email : ""}</span>
             </label>
           </fieldset>
-          <button type="submit" className="profile__submit-btn">Редактировать</button>
+          <div className="profile__btn-wrap">
+              <span className={`profile__server-message${serverMessage.isError ? " profile__server-message_type_error" : ""}`}>{serverMessage.text}</span>
+            <button type="submit" className="profile__submit-btn">Редактировать</button>
+          </div>
         </form>
         <button type="button" className="profile__logout-btn" onClick={onSignOut} >Выйти из аккаунта</button>
       </div>

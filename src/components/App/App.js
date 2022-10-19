@@ -105,6 +105,15 @@ function App() {
   }, [pathname, savedMovies])
 
   useEffect(() => {
+  if (pathname === '/profile' || pathname === '/sigin' || pathname === '/signup') {
+    setServerMessage({
+        text: '',
+        isError: false,
+      });
+    }
+  }, [pathname])
+
+  useEffect(() => {
     if (!searchErrorIsActive) return;
 
     setTimeout(() => {

@@ -9,7 +9,7 @@ function useFormWithValidation() {
     const target = event.target;
     const form = target.closest("form");
     const name = target.name;
-    const value = target.value;
+    const value = (target.name === 'email') ? target.value.toLowerCase() : target.value;
     const validityState = target.validity;
 
     if (validityState.patternMismatch && name === 'username') {

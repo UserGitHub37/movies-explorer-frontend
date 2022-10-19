@@ -36,12 +36,6 @@ function Register ({ onRegister, serverMessage }) {
       email: '',
       password: ''
   })
-
-  //   resetForm({
-  //     username: 'ИМЯ',
-  //     email: 'ПОЧТА',
-  //     password: 'ПАРОЛЬ'
-  // })
 }, []);
 
   function handleSubmit (e) {
@@ -117,7 +111,7 @@ function Register ({ onRegister, serverMessage }) {
             </label>
           </fieldset>
           <div className="register__btn-wrap">
-            <span className={`register__server-message${serverMessage.isError && " register__server-message_type_error"}`}>{serverMessage.text}</span>
+            <span className={`register__server-message${serverMessage.isError ? " register__server-message_type_error" : ""}`}>{serverMessage.text}</span>
             <button type="submit" className="register__submit-btn" >
               Зарегистрироваться
             </button>
