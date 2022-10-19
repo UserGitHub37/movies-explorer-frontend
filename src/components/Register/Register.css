@@ -100,7 +100,13 @@
   border-radius: 8px;
 }
 
+.register__input:focus {
+  outline: none;
+  border: 1px solid #fff;
+}
+
 .register__input_type_error {
+  border: 1px solid #EE3465;
   color: #EE3465;
 }
 

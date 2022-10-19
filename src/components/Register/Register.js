@@ -68,7 +68,7 @@ function Register ({ onRegister, serverMessage }) {
             <label className="register__input-label">
               <p className="register__subtitle">Имя</p>
               <input
-                className="register__input register__input_field_name"
+                className={`register__input${errors.username ? " register__input_type_error" : ""}`}
                 id="register-name-input"
                 type="text"
                 name="username"
@@ -83,7 +83,7 @@ function Register ({ onRegister, serverMessage }) {
             <label className="register__input-label">
               <p className="register__subtitle">E-mail</p>
               <input
-                className="register__input register__input_field_email"
+                className={`register__input${errors.email ? " register__input_type_error" : ""}`}
                 id="register-email-input"
                 type="email"
                 name="email"
@@ -98,7 +98,7 @@ function Register ({ onRegister, serverMessage }) {
             <label className="register__input-label">
               <p className="register__subtitle">Пароль</p>
               <input
-                className="register__input register__input_field_password register__input_type_error"
+                className={`register__input${errors.password ? " register__input_type_error" : ""}`}
                 id="register-password-input"
                 type="password"
                 name="password"
@@ -112,7 +112,7 @@ function Register ({ onRegister, serverMessage }) {
           </fieldset>
           <div className="register__btn-wrap">
             <span className={`register__server-message${serverMessage.isError ? " register__server-message_type_error" : ""}`}>{serverMessage.text}</span>
-            <button type="submit" className="register__submit-btn" >
+            <button type="submit" className="register__submit-btn" disabled={!isValid} >
               Зарегистрироваться
             </button>
           </div>

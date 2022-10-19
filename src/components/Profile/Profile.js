@@ -34,9 +34,13 @@ function Profile ({ onSignOut, onUpdateUser, serverMessage }) {
   })
 }, []);
 
-  function onSubmit (e) {
+  function onSubmit(e) {
     e.preventDefault();
-    if (isValid) {
+    if (
+      isValid &&
+      (currentUser.name === values.username ||
+        currentUser.email === values.email)
+    ) {
       onUpdateUser({
         name: values.username,
         email: values.email,
@@ -62,7 +66,7 @@ function Profile ({ onSignOut, onUpdateUser, serverMessage }) {
             <label className="profile__input-label">
               <p className="profile__subtitle">Имя</p>
               <input
-                className="profile__input profile__input_field_name"
+                className={`profile__input profile__input_field_name${errors.username ? " profile__input_type_error" : ""}`}
                 id="profile-name-input"
                 type="text"
                 name="username"
@@ -79,7 +83,7 @@ function Profile ({ onSignOut, onUpdateUser, serverMessage }) {
             <label className="profile__input-label">
               <p className="profile__subtitle">E-mail</p>
               <input
-                className="profile__input profile__input_field_email"
+                className={`profile__input${errors.email ? " profile__input_type_error" : ""}`}
                 id="profile-email-input"
                 type="email"
                 name="email"
