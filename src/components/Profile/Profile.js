@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 import ContainerWrapper from '../common/ContainerWrapper/ContainerWrapper';
@@ -47,7 +47,7 @@ function Profile ({ onSignOut, onUpdateUser }) {
                 className="profile__input profile__input_field_name"
                 id="profile-name-input"
                 type="text"
-                name="profileName"
+                name="username"
                 placeholder="Введите имя"
                 minLength="2"
                 maxLength="30"
@@ -63,7 +63,7 @@ function Profile ({ onSignOut, onUpdateUser }) {
                 className="profile__input profile__input_field_email"
                 id="profile-email-input"
                 type="email"
-                name="profileEmail"
+                name="email"
                 placeholder="Введите E-mail"
                 minLength='5'
                 maxLength='40'

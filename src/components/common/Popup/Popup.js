@@ -13,9 +13,9 @@ const Popup = ({ isOpen, name, onClose, children }) => {
       }
     }
 
-    document.addEventListener('keydown', closeByEscape)
+    document.addEventListener('keydown', closeByEscape);
 
-    return () => document.removeEventListener('keydown', closeByEscape)
+    return () => document.removeEventListener('keydown', closeByEscape);
 
   }, [isOpen, onClose])
 

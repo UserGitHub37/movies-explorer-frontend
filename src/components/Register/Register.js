@@ -1,42 +1,58 @@
-import React, { useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import useFormWithValidation from '../../hooks/useFormWithValidation';
 
 import ContainerWrapper from '../common/ContainerWrapper/ContainerWrapper';
 import logoPath from '../../images/header-logo.svg';
 
 import './Register.css';
 
+import { nameRegExp, emailRegExp } from '../../utils/constants';
+
 function Register ({ onRegister, serverMessage }) {
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const formRef = useRef();
 
-  React.useEffect(() => {
-    setName('');
-    setEmail('');
-    setPassword('');
+  const {
+    values,
+    errors,
+    isValid,
+    handleChange,
+    resetForm,
+  } = useFormWithValidation();
+
+  useEffect(() => {
+    const form = formRef.current;
+    function disableInputHints (e) {
+      e.preventDefault();
+    }
+    form.addEventListener('invalid', disableInputHints, true);
+    return () => form.removeEventListener('invalid', disableInputHints);
   }, []);
 
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
+  useEffect(() => {
+    resetForm({
+      username: '',
+      email: '',
+      password: ''
+  })
 
-  function handleChangeEmail(e) {
-    setEmail(() => e.target.value.toLowerCase());
-  }
-
-  function handleChangePassword(e) {
-    setPassword(e.target.value);
-  }
+  //   resetForm({
+  //     username: 'ИМЯ',
+  //     email: 'ПОЧТА',
+  //     password: 'ПАРОЛЬ'
+  // })
+}, []);
 
   function handleSubmit (e) {
     e.preventDefault();
-    onRegister({
-      name,
-      email,
-      password,
-    });
+    if (isValid) {
+      onRegister({
+        name: values.username,
+        email: values.email,
+        password: values.password,
+      });
+    }
   }
 
   return (
@@ -52,6 +68,7 @@ function Register ({ onRegister, serverMessage }) {
           action="#"
           name="register"
           onSubmit={handleSubmit}
+          ref={formRef}
         >
           <fieldset className="register__fieldset">
             <label className="register__input-label">
@@ -60,15 +77,14 @@ function Register ({ onRegister, serverMessage }) {
                 className="register__input register__input_field_name"
                 id="register-name-input"
                 type="text"
-                name="registerName"
+                name="username"
                 placeholder="Введите имя"
-                minLength="2"
-                maxLength="30"
+                value={values.username ? values.username : ""}
+                onChange={handleChange}
                 required
-                value={name ? name : ""}
-                onChange={handleChangeName}
+                pattern={nameRegExp}
               />
-              <span className="register__error-message register-name-input-error"></span>
+              <span className="register__error-message register-name-input-error">{errors.username ? errors.username : ""}</span>
             </label>
             <label className="register__input-label">
               <p className="register__subtitle">E-mail</p>
@@ -76,15 +92,14 @@ function Register ({ onRegister, serverMessage }) {
                 className="register__input register__input_field_email"
                 id="register-email-input"
                 type="email"
-                name="registerEmail"
+                name="email"
                 placeholder="Введите E-mail"
-                minLength='5'
-                maxLength='40'
+                value={values.email ? values.email : ""}
+                onChange={handleChange}
                 required
-                value={email ? email : ""}
-                onChange={handleChangeEmail}
+                pattern={emailRegExp}
               />
-              <span className="register__error-message register-email-input-error"></span>
+              <span className="register__error-message register-email-input-error">{errors.email ? errors.email : ""}</span>
             </label>
             <label className="register__input-label">
               <p className="register__subtitle">Пароль</p>
@@ -92,20 +107,18 @@ function Register ({ onRegister, serverMessage }) {
                 className="register__input register__input_field_password register__input_type_error"
                 id="register-password-input"
                 type="password"
-                name="registerPassword"
+                name="password"
                 placeholder="Введите пароль"
-                minLength="5"
-                maxLength="50"
+                value={values.password ? values.password : ""}
+                onChange={handleChange}
                 required
-                value={password ? password : ""}
-                onChange={handleChangePassword}
               />
-              <span className="register__error-message register-password-input-error">Что-то пошло не так...</span>
+              <span className="register__error-message register-password-input-error">{errors.password ? errors.password : ""}</span>
             </label>
           </fieldset>
           <div className="register__btn-wrap">
             <span className={`register__server-message${serverMessage.isError && " register__server-message_type_error"}`}>{serverMessage.text}</span>
-            <button type="submit" className="register__submit-btn">
+            <button type="submit" className="register__submit-btn" >
               Зарегистрироваться
             </button>
           </div>

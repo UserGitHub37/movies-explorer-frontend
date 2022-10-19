@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import ContainerWrapper from '../common/ContainerWrapper/ContainerWrapper';
@@ -11,7 +11,7 @@ function Login ({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  React.useEffect(() => {
+  useEffect(() => {
     setEmail('');
     setPassword('');
   }, []);
@@ -55,7 +55,7 @@ function Login ({ onLogin }) {
                 className="login__input login__input_field_email"
                 id="login-email-input"
                 type="email"
-                name="loginEmail"
+                name="email"
                 placeholder="Введите E-mail"
                 minLength='5'
                 maxLength='40'
@@ -71,7 +71,7 @@ function Login ({ onLogin }) {
                 className="login__input login__input_field_password login__input_type_error"
                 id="login-password-input"
                 type="password"
-                name="loginPassword"
+                name="password"
                 placeholder="Введите пароль"
                 minLength="5"
                 maxLength="50"
