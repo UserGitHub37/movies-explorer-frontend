@@ -188,6 +188,10 @@ function App() {
 
   function closeInfoTooltipPopup() {
     setIsInfoTooltipPopupOpen(false);
+    setServerMessage({
+      text: '',
+      isError: false,
+    })
   }
 
   function handleSignOut() {

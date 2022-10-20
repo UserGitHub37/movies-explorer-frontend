@@ -69,7 +69,9 @@ function Login ({ onLogin, serverMessage }) {
             <label className="login__input-label">
               <p className="login__subtitle">E-mail</p>
               <input
-                className={`login__input${errors.email ? " login__input_type_error" : ""}`}
+                className={`login__input${
+                  errors.email ? " login__input_type_error" : ""
+                }`}
                 id="login-email-input"
                 type="email"
                 name="email"
@@ -79,12 +81,16 @@ function Login ({ onLogin, serverMessage }) {
                 required
                 pattern={emailRegExp}
               />
-              <span className="login__error-message login-email-input-error">{errors.email ? errors.email : ""}</span>
+              <span className="login__error-message login-email-input-error">
+                {errors.email ? errors.email : ""}
+              </span>
             </label>
             <label className="login__input-label">
               <p className="login__subtitle">Пароль</p>
               <input
-                className={`login__input${errors.password ? " login__input_type_error" : ""}`}
+                className={`login__input${
+                  errors.password ? " login__input_type_error" : ""
+                }`}
                 id="login-password-input"
                 type="password"
                 name="password"
@@ -95,17 +101,35 @@ function Login ({ onLogin, serverMessage }) {
                 onChange={handleChange}
                 required
               />
-              <span className="login__error-message login-password-input-error">{errors.password ? errors.password : ""}</span>
+              <span className="login__error-message login-password-input-error">
+                {errors.password ? errors.password : ""}
+              </span>
             </label>
           </fieldset>
           <div className="login__btn-wrap">
-            <span className={`login__server-message${serverMessage.isError ? " login__server-message_type_error" : ""}`}>{serverMessage.text}</span>
-            <button type="submit" className="login__submit-btn">
+            <span
+              className={`login__server-message${
+                serverMessage.isError ? " login__server-message_type_error" : ""
+              }`}
+            >
+              {serverMessage.text}
+            </span>
+            <button
+              type="submit"
+              className={`login__submit-btn${
+                isValid ? "" : " login__submit-btn_disabled"
+              }`}
+            >
               Войти
             </button>
           </div>
         </form>
-        <p className="login__footnote">Ещё не зарегистрированы?&ensp;<Link to="/signup" className="login__footnote-link">Регистрация</Link></p>
+        <p className="login__footnote">
+          Ещё не зарегистрированы?&ensp;
+          <Link to="/signup" className="login__footnote-link">
+            Регистрация
+          </Link>
+        </p>
       </div>
     </ContainerWrapper>
   );

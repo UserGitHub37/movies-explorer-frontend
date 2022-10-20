@@ -164,6 +164,11 @@
   }
 }
 
+.login__submit-btn_disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+}
+
 .login__footnote {
   justify-self: center;
   margin: 0;

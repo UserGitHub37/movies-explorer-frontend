@@ -50,7 +50,9 @@ function Register ({ onRegister, serverMessage }) {
   }
 
   return (
-    <ContainerWrapper className={"container-wrapper__color_black container-wrapper__type_grow"}>
+    <ContainerWrapper
+      className={"container-wrapper__color_black container-wrapper__type_grow"}
+    >
       <div className="register">
         <Link to="/" className="register__logo-link">
           <img src={logoPath} alt="Логотип сайта" className="register__logo" />
@@ -68,7 +70,9 @@ function Register ({ onRegister, serverMessage }) {
             <label className="register__input-label">
               <p className="register__subtitle">Имя</p>
               <input
-                className={`register__input${errors.username ? " register__input_type_error" : ""}`}
+                className={`register__input${
+                  errors.username ? " register__input_type_error" : ""
+                }`}
                 id="register-name-input"
                 type="text"
                 name="username"
@@ -78,12 +82,16 @@ function Register ({ onRegister, serverMessage }) {
                 required
                 pattern={nameRegExp}
               />
-              <span className="register__error-message register-name-input-error">{errors.username ? errors.username : ""}</span>
+              <span className="register__error-message register-name-input-error">
+                {errors.username ? errors.username : ""}
+              </span>
             </label>
             <label className="register__input-label">
               <p className="register__subtitle">E-mail</p>
               <input
-                className={`register__input${errors.email ? " register__input_type_error" : ""}`}
+                className={`register__input${
+                  errors.email ? " register__input_type_error" : ""
+                }`}
                 id="register-email-input"
                 type="email"
                 name="email"
@@ -93,12 +101,16 @@ function Register ({ onRegister, serverMessage }) {
                 required
                 pattern={emailRegExp}
               />
-              <span className="register__error-message register-email-input-error">{errors.email ? errors.email : ""}</span>
+              <span className="register__error-message register-email-input-error">
+                {errors.email ? errors.email : ""}
+              </span>
             </label>
             <label className="register__input-label">
               <p className="register__subtitle">Пароль</p>
               <input
-                className={`register__input${errors.password ? " register__input_type_error" : ""}`}
+                className={`register__input${
+                  errors.password ? " register__input_type_error" : ""
+                }`}
                 id="register-password-input"
                 type="password"
                 name="password"
@@ -107,17 +119,38 @@ function Register ({ onRegister, serverMessage }) {
                 onChange={handleChange}
                 required
               />
-              <span className="register__error-message register-password-input-error">{errors.password ? errors.password : ""}</span>
+              <span className="register__error-message register-password-input-error">
+                {errors.password ? errors.password : ""}
+              </span>
             </label>
           </fieldset>
           <div className="register__btn-wrap">
-            <span className={`register__server-message${serverMessage.isError ? " register__server-message_type_error" : ""}`}>{serverMessage.text}</span>
-            <button type="submit" className="register__submit-btn" disabled={!isValid} >
+            <span
+              className={`register__server-message${
+                serverMessage.isError
+                  ? " register__server-message_type_error"
+                  : ""
+              }`}
+            >
+              {serverMessage.text}
+            </span>
+            <button
+              type="submit"
+              className={`register__submit-btn${
+                isValid ? "" : " register__submit-btn_disabled"
+              }`}
+              disabled={!isValid}
+            >
               Зарегистрироваться
             </button>
           </div>
         </form>
-        <p className="register__footnote">Уже зарегистрированы?&ensp;<Link to="/signin" className="register__footnote-link">Войти</Link></p>
+        <p className="register__footnote">
+          Уже зарегистрированы?&ensp;
+          <Link to="/signin" className="register__footnote-link">
+            Войти
+          </Link>
+        </p>
       </div>
     </ContainerWrapper>
   );

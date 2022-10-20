@@ -208,6 +208,11 @@
   }
 }
 
+.profile__submit-btn_disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+}
+
 .profile__logout-btn {
   justify-self: center;
   border: none;

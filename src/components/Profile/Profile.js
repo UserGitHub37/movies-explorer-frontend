@@ -40,8 +40,8 @@ function Profile ({ onSignOut, onUpdateUser, serverMessage }) {
     e.preventDefault();
     if (
       isValid &&
-      (currentUser.name === values.username ||
-        currentUser.email === values.email)
+      (currentUser.name !== values.username ||
+        currentUser.email !== values.email)
     ) {
       onUpdateUser({
         name: values.username,
@@ -63,7 +63,7 @@ function Profile ({ onSignOut, onUpdateUser, serverMessage }) {
         <h1 className="profile__title">{`Привет, ${currentUser.name}!`}</h1>
 
         <form
-        id="profile"
+          id="profile"
           className="profile__form"
           action="#"
           name="profile"
@@ -74,7 +74,9 @@ function Profile ({ onSignOut, onUpdateUser, serverMessage }) {
             <label className="profile__input-label">
               <p className="profile__subtitle">Имя</p>
               <input
-                className={`profile__input profile__input_field_name${errors.username ? " profile__input_type_error" : ""}`}
+                className={`profile__input profile__input_field_name${
+                  errors.username ? " profile__input_type_error" : ""
+                }`}
                 id="profile-name-input"
                 type="text"
                 name="username"
@@ -87,34 +89,76 @@ function Profile ({ onSignOut, onUpdateUser, serverMessage }) {
                 pattern={nameRegExp}
                 disabled={!editMode}
               />
-              <span className="profile__error-message profile-name-input-error">{errors.username ? errors.username : ""}</span>
+              <span className="profile__error-message profile-name-input-error">
+                {errors.username ? errors.username : ""}
+              </span>
             </label>
             <label className="profile__input-label">
               <p className="profile__subtitle">E-mail</p>
               <input
-                className={`profile__input${errors.email ? " profile__input_type_error" : ""}`}
+                className={`profile__input${
+                  errors.email ? " profile__input_type_error" : ""
+                }`}
                 id="profile-email-input"
                 type="email"
                 name="email"
                 placeholder="Введите E-mail"
-                minLength='5'
-                maxLength='40'
+                minLength="5"
+                maxLength="40"
                 value={values.email ? values.email : ""}
                 onChange={handleChange}
                 required
                 pattern={emailRegExp}
                 disabled={!editMode}
               />
-              <span className="profile__error-message profile-email-input-error">{errors.email ? errors.email : ""}</span>
+              <span className="profile__error-message profile-email-input-error">
+                {errors.email ? errors.email : ""}
+              </span>
             </label>
           </fieldset>
         </form>
         <div className="profile__btn-wrap">
-            <span className={`profile__server-message${serverMessage.isError ? " profile__server-message_type_error" : ""}`}>{serverMessage.text}</span>
-            {editMode && <button type="submit" className="profile__submit-btn" form="profile" >Сохранить</button>}
-            {!editMode && <button type="button" className="profile__edit-btn" onClick={handleEditModeEntry}>Редактировать</button>}
-            {!editMode && <button type="button" className="profile__logout-btn" onClick={onSignOut} >Выйти из аккаунта</button>}
-          </div>
+          <span
+            className={`profile__server-message${
+              serverMessage.isError ? " profile__server-message_type_error" : ""
+            }`}
+          >
+            {serverMessage.text}
+          </span>
+          {editMode && (
+            <button
+              type="submit"
+              className={`profile__submit-btn${
+                isValid &&
+                (currentUser.name !== values.username ||
+                  currentUser.email !== values.email)
+                  ? ""
+                  : " profile__submit-btn_disabled"
+              }`}
+              form="profile"
+            >
+              Сохранить
+            </button>
+          )}
+          {!editMode && (
+            <button
+              type="button"
+              className="profile__edit-btn"
+              onClick={handleEditModeEntry}
+            >
+              Редактировать
+            </button>
+          )}
+          {!editMode && (
+            <button
+              type="button"
+              className="profile__logout-btn"
+              onClick={onSignOut}
+            >
+              Выйти из аккаунта
+            </button>
+          )}
+        </div>
       </div>
     </ContainerWrapper>
   );

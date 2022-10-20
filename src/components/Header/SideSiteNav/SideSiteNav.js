@@ -9,6 +9,11 @@ function SideSiteNav ({ setMenuIsOpen, onAccBtnClick }) {
     setMenuIsOpen(false);
   }
 
+  function handleAccBtnClick () {
+    onAccBtnClick();
+    setMenuIsOpen(false);
+  }
+
   return (
     <section className="side-nav">
       <div className="side-nav__wrap">
@@ -24,6 +29,7 @@ function SideSiteNav ({ setMenuIsOpen, onAccBtnClick }) {
             <li className="side-nav__item-link">
               <NavLink
                 to="/"
+                onClick={handleCloseBtnClick}
                 className={({ isActive }) =>
                   isActive
                     ? "side-nav__link side-nav__link_active"
@@ -36,6 +42,7 @@ function SideSiteNav ({ setMenuIsOpen, onAccBtnClick }) {
             <li className="side-nav__item-link">
               <NavLink
                 to="/movies"
+                onClick={handleCloseBtnClick}
                 className={({ isActive }) =>
                   isActive
                     ? "side-nav__link side-nav__link_active"
@@ -48,6 +55,7 @@ function SideSiteNav ({ setMenuIsOpen, onAccBtnClick }) {
             <li className="side-nav__item-link">
               <NavLink
                 to="/saved-movies"
+                onClick={handleCloseBtnClick}
                 className={({ isActive }) =>
                   isActive
                     ? "side-nav__link side-nav__link_active"
@@ -58,7 +66,7 @@ function SideSiteNav ({ setMenuIsOpen, onAccBtnClick }) {
               </NavLink>
             </li>
           </ul>
-          <button className="side-nav__acc-btn" onClick={onAccBtnClick}>
+          <button className="side-nav__acc-btn" onClick={handleAccBtnClick}>
             <img
               src={accBtnlogoPath}
               alt="Логотип кнопки"
