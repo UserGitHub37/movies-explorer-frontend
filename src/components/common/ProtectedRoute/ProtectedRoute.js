@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ loggedIn, children }) => {
-  if (loggedIn === undefined) {
+  if (loggedIn === null) {
     return null;
   }
 

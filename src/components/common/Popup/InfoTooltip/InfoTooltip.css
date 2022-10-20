@@ -2,7 +2,6 @@
   margin: 26px  auto 32px;
   width: 120px;
   height: 120px;
-  background-image: url(../../../../images/success.svg);
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -14,7 +13,11 @@
   }
 }
 
-.info-tooltip__status-image_error {
+.info-tooltip__status-image_type_success {
+  background-image: url(../../../../images/success.svg);
+}
+
+.info-tooltip__status-image_type_error {
   background-image: url(../../../../images/unsuccess.svg);
 }
 

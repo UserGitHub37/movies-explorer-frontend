@@ -34,7 +34,7 @@ const {
 } = require('../../utils/constants');
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(undefined);
+  const [loggedIn, setLoggedIn] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [mainMovies, setMainMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
@@ -45,7 +45,7 @@ function App() {
   const [searchErrorMessage, setSearchErrorMessage] = useState('');
   const [serverMessage, setServerMessage] = useState({
     text: '',
-    isError: false,
+    isError: null,
   });
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
 
@@ -108,7 +108,7 @@ function App() {
   if (pathname === '/profile' || pathname === '/sigin' || pathname === '/signup') {
     setServerMessage({
         text: '',
-        isError: false,
+        isError: null,
       });
     }
   }, [pathname])
@@ -190,7 +190,7 @@ function App() {
     setIsInfoTooltipPopupOpen(false);
     setServerMessage({
       text: '',
-      isError: false,
+      isError: null,
     })
   }
 
@@ -209,7 +209,7 @@ function App() {
     setSearchErrorMessage('');
     setServerMessage({
       text: '',
-      isError: false,
+      isError: null,
     });
     setIsInfoTooltipPopupOpen(false);
   }
