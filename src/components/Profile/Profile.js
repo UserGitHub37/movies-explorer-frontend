@@ -1,4 +1,4 @@
-import { useEffect, useContext, useRef } from 'react';
+import { useEffect, useState, useContext, useRef } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import useFormWithValidation from '../../hooks/useFormWithValidation';
 
@@ -17,6 +17,8 @@ function Profile ({ onSignOut, onUpdateUser, serverMessage }) {
     handleChange,
     resetForm,
   } = useFormWithValidation();
+
+  const [ editMode, setEditMode ] = useState(false);
 
   useEffect(() => {
     const form = formRef.current;
@@ -48,14 +50,20 @@ function Profile ({ onSignOut, onUpdateUser, serverMessage }) {
     }
   }
 
+  function handleEditModeEntry () {
+    setEditMode(true);
+  }
+
+
   return (
     <ContainerWrapper
       className={"container-wrapper__color_black container-wrapper__type_grow"}
     >
       <div className="profile">
-        <h1 className="profile__title">Привет, {currentUser.name}</h1>
+        <h1 className="profile__title">{`Привет, ${currentUser.name}!`}</h1>
 
         <form
+        id="profile"
           className="profile__form"
           action="#"
           name="profile"
@@ -77,6 +85,7 @@ function Profile ({ onSignOut, onUpdateUser, serverMessage }) {
                 onChange={handleChange}
                 required
                 pattern={nameRegExp}
+                disabled={!editMode}
               />
               <span className="profile__error-message profile-name-input-error">{errors.username ? errors.username : ""}</span>
             </label>
@@ -94,16 +103,18 @@ function Profile ({ onSignOut, onUpdateUser, serverMessage }) {
                 onChange={handleChange}
                 required
                 pattern={emailRegExp}
+                disabled={!editMode}
               />
               <span className="profile__error-message profile-email-input-error">{errors.email ? errors.email : ""}</span>
             </label>
           </fieldset>
-          <div className="profile__btn-wrap">
-              <span className={`profile__server-message${serverMessage.isError ? " profile__server-message_type_error" : ""}`}>{serverMessage.text}</span>
-            <button type="submit" className="profile__submit-btn">Редактировать</button>
-          </div>
         </form>
-        <button type="button" className="profile__logout-btn" onClick={onSignOut} >Выйти из аккаунта</button>
+        <div className="profile__btn-wrap">
+            <span className={`profile__server-message${serverMessage.isError ? " profile__server-message_type_error" : ""}`}>{serverMessage.text}</span>
+            {editMode && <button type="submit" className="profile__submit-btn" form="profile" >Сохранить</button>}
+            {!editMode && <button type="button" className="profile__edit-btn" onClick={handleEditModeEntry}>Редактировать</button>}
+            {!editMode && <button type="button" className="profile__logout-btn" onClick={onSignOut} >Выйти из аккаунта</button>}
+          </div>
       </div>
     </ContainerWrapper>
   );
