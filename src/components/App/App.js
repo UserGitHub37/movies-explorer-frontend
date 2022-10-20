@@ -100,9 +100,9 @@ function App() {
 
   useEffect(() => {
     if (pathname === '/saved-movies') {
-      setSavedDisplayedCards(savedMovies);
+      setSavedDisplayedCards(() => JSON.parse(localStorage.getItem('savedMovies')));
     }
-  }, [pathname, savedMovies])
+  }, [pathname])
 
   useEffect(() => {
   if (pathname === '/profile' || pathname === '/sigin' || pathname === '/signup') {
@@ -110,6 +110,9 @@ function App() {
         text: '',
         isError: null,
       });
+    } else if (pathname === '/movies' || pathname === '/saved-movies') {
+      setSearchErrorIsActive(false);
+      setSearchErrorMessage(false);
     }
   }, [pathname])
 
@@ -119,8 +122,7 @@ function App() {
     setTimeout(() => {
       setSearchErrorIsActive(false);
       setSearchErrorMessage(false);
-    }, 8000);
-
+    }, 5000);
   }, [searchErrorIsActive])
 
   function handleLogin(data) {
