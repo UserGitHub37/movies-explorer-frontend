@@ -1,3 +1,11 @@
+//Мой API с регистрацией, авторизацией и сохраненными фильмами пользователей
+export const MAIN_API_BASE_URL = 'http://localhost:3000/';
+// export const MAIN_API_BASE_URL = 'api.movies.thirtyseven.nomoredomains.sbs';
+
+
+//Сторонний API с базой фильмов
+export const MOVIES_API_BASE_URL = 'https://api.nomoreparties.co/beatfilm-movies';
+
 export const SEARCH_ERRORS = {
   NOT_FOUND: 'Ничего не найдено',
   SERVER_IS_NOT_AVAILABLE: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'

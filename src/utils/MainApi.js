@@ -1,3 +1,7 @@
+const {
+  MAIN_API_BASE_URL,
+} = require('./constants');
+
 class MainApi {
   constructor (options) {
     this._baseUrl = options.baseUrl;
@@ -68,7 +72,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  baseUrl: 'http://localhost:3000/',
+  baseUrl: MAIN_API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   }
