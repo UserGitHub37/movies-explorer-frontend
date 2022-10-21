@@ -1,6 +1,6 @@
 //Мой API с регистрацией, авторизацией и сохраненными фильмами пользователей
-//export const MAIN_API_BASE_URL = 'http://localhost:3000/';
-export const MAIN_API_BASE_URL = 'https://api.movies.thirtyseven.nomoredomains.sbs/';
+export const MAIN_API_BASE_URL = 'http://localhost:3000/';
+//export const MAIN_API_BASE_URL = 'https://api.movies.thirtyseven.nomoredomains.sbs/';
 
 
 //Сторонний API с базой фильмов
@@ -11,6 +11,13 @@ export const SEARCH_ERRORS = {
   SERVER_IS_NOT_AVAILABLE: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
 }
 
-export const nameRegExp = '[A-Za-zА-Яа-яЁё-]+[A-Za-zА-Яа-яЁё\s-]*[A-Za-zА-Яа-яЁё-]*';
+export const STATUS_CODE = {
+  UNAUTHORIZED: 401,
+}
 
-export const emailRegExp = '[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+.+.[A-Za-z]{2,4}';
+// Регулярные выражения для подстановки в атрибуты инпутов "pattern" (тут есть свои особенности)
+// "\\s" так отлавливаем пробельные символы
+// "\\." так отлавливаем точку
+// одним слешем тут не обойдешься
+export const nameRegExp = '[A-Za-zА-Яа-яЁё-]+[A-Za-zА-Яа-яЁё\\s-]*[A-Za-zА-Яа-яЁё-]*';
+export const emailRegExp = '([a-z0-9]+(?:[._-][a-z0-9]+)*)@([a-z0-9]+(?:[.-][a-z0-9]+)*\\.[a-z]{2,})';

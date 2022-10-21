@@ -20,6 +20,10 @@ function Profile ({ onSignOut, onUpdateUser, serverMessage }) {
 
   const [ editMode, setEditMode ] = useState(false);
 
+useEffect(() => {
+  setEditMode(false);
+}, [currentUser])
+
   useEffect(() => {
     const form = formRef.current;
     function disableInputHints (e) {

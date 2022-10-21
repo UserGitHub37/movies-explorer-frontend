@@ -31,6 +31,7 @@ import {
 
 const {
   SEARCH_ERRORS,
+  STATUS_CODE,
 } = require('../../utils/constants');
 
 function App() {
@@ -59,13 +60,14 @@ function App() {
           setCurrentUser(userData);
           setLoggedIn(true);
         })
-        .catch(err => {
+        .catch((err) => {
+          if (err.status === STATUS_CODE.UNAUTHORIZED) {
+            handleSignOut();
+          }
           console.log(err);
-          localStorage.clear();
-          setLoggedIn(false);
         });
     } else {
-      setLoggedIn(false);
+      handleSignOut();
     }
   }, []);
 
@@ -91,9 +93,14 @@ function App() {
           .then((data) => {
             setSavedMovies(data);
             setSavedDisplayedCards(data);
-            localStorage.setItem('savedMovies', JSON.stringify(data));
+            localStorage.setItem("savedMovies", JSON.stringify(data));
           })
-          .catch(err => console.log(err));
+          .catch((err) => {
+            if (err.status === STATUS_CODE.UNAUTHORIZED) {
+              handleSignOut();
+            }
+            console.log(err);
+          });
       }
     }
   }, [loggedIn]);
@@ -175,7 +182,6 @@ function App() {
       });
       setCurrentUser(userData);
       setIsInfoTooltipPopupOpen(true);
-      navigate('/movies');
     })
     .catch(async (err) => {
       const res = await err.json();
@@ -184,6 +190,13 @@ function App() {
         isError: true,
       });
       setIsInfoTooltipPopupOpen(true);
+
+      if (err.status === STATUS_CODE.UNAUTHORIZED) {
+        setTimeout(() => {
+          handleSignOut();
+        }, 3000);
+      }
+      console.log(err);
     })
     .catch(err => console.log(err));
   }
@@ -197,10 +210,9 @@ function App() {
   }
 
   function handleSignOut() {
-    localStorage.clear();
     setLoggedIn(false);
+    localStorage.clear();
     navigate('/');
-    setLoggedIn(undefined);
     setCurrentUser({});
     setMainMovies([]);
     setSavedMovies([]);
@@ -285,7 +297,22 @@ function App() {
         setSavedMovies((movies) => [...movies, card]);
         setSavedDisplayedCards((cards) => [...cards, card]);
       })
-      .catch(err => console.log(err));
+      .catch(async (err) => {
+        const res = await err.json();
+
+        setServerMessage({
+          text: res.message,
+          isError: true,
+        });
+        setIsInfoTooltipPopupOpen(true);
+
+        if (err.status === STATUS_CODE.UNAUTHORIZED) {
+          setTimeout(() => {
+            handleSignOut();
+          }, 3000);
+        }
+        console.log(err);
+      });
     }
   }
 
@@ -297,7 +324,22 @@ function App() {
         localStorage.setItem('savedMovies', JSON.stringify(updatedSavedMovies));
         setSavedDisplayedCards((cards) => cards.filter((card) => card.movieId !== cardId));
       })
-      .catch(err => console.log(err));
+      .catch(async (err) => {
+        const res = await err.json();
+
+        setServerMessage({
+          text: res.message,
+          isError: true,
+        });
+        setIsInfoTooltipPopupOpen(true);
+
+        if (err.status === STATUS_CODE.UNAUTHORIZED) {
+          setTimeout(() => {
+            handleSignOut();
+          }, 3000);
+        }
+        console.log(err);
+      });
   }
 
   return (
