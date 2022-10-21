@@ -33,11 +33,13 @@ Movies Explorer - интерактивный сайт с регистрацие�
 
 ##### Ссылки:
 
+Ссылка на сайт https://movies.thirtyseven.nomoredomains.sbs
+
 Ссылка на бэкенд проекта: https://github.com/UserGitHub37/movies-explorer-api
 
 Ссылка на макет в Figma https://www.figma.com/file/qAlCioWW8mCU7r1AkvgW4Y/MyDiploma?node-id=891%3A3857
 
-Ссылка на пул реквест, открытый из ветки level-3 в main: https://github.com/UserGitHub37/movies-explorer-frontend/pull/2
+Ссылка на пул реквест, открытый из ветки level-3 в main: [https://github.com/UserGitHub37/movies-explorer-frontend/pull/2](https://github.com/UserGitHub37/movies-explorer-frontend/pull/2)
 
 * * *
 
