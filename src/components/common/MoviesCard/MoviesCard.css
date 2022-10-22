@@ -4,11 +4,24 @@
   padding-bottom: 14px;
 }
 
+.card__link {
+  transition: opacity 0.2s ease;
+  color: #fff;
+  text-decoration: none;
+}
+
+.card__link:hover {
+  opacity: 0.6;
+}
+
 .card__image {
   display: block;
   width: 100%;
   height: calc((100vw - 10px - 10px) / 1.786);
   object-fit: contain;
+  object-position: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 @media screen and (min-width: 630px) {
@@ -46,6 +59,19 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.card__remove-btn {
+  cursor: pointer;
+  background-color: transparent;
+  width: 16px;
+  height: 16px;
+  border: none;
+  padding: 0;
+  background-image: url('../../../images/cross.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 12px;
 }
 
 .card__like-btn {

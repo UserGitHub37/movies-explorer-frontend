@@ -1,21 +1,98 @@
+import { useEffect, useState } from 'react';
+import ContainerWrapper from '../ContainerWrapper/ContainerWrapper';
 import './SearchForm.css';
 
-function SearchForm ({ name, onSubmit }) {
+function SearchForm ({ pageName, onSearchMovies }) {
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const [searchText, setSearchText] = useState(() => {
+    if (pageName === 'movies') {
+      return localStorage.getItem('mainMoviesSearchText');
+    }
+    return '';
+  });
+
+  const [checked, setChecked] = useState(() => {
+    if (pageName === 'movies') {
+      return localStorage.getItem('isShortMainMovies') === 'true';
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    setSearchText(() => {
+      if (pageName === 'movies') {
+        return localStorage.getItem('mainMoviesSearchText');
+      }
+      return '';
+    });
+
+    setChecked(() => {
+      if (pageName === 'movies') {
+        return localStorage.getItem('isShortMainMovies') === 'true';
+      }
+      return false;
+    });
+
+    setErrorMessage('');
+  }, [pageName])
+
+  useEffect(() => {
+
+    if (!errorMessage) return;
+
+    const clearTextField = () => {
+      setErrorMessage('');
+    }
+
+    document.addEventListener('input', clearTextField)
+
+    return () => document.removeEventListener('input', clearTextField)
+
+  }, [errorMessage, searchText, pageName])
+
+  function handleChangeSearchText (e) {
+    setSearchText(e.target.value);
+  }
+
+  function onSubmit (e) {
+    e.preventDefault();
+    if (!searchText) {
+      setErrorMessage('Нужно ввести ключевое слово');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 4000);
+    } else {
+      onSearchMovies(pageName, checked, searchText);
+    }
+  }
+
+  function handleChangeCheckbox () {
+    if (pageName === 'movies') {
+      localStorage.setItem('isShortMainMovies', JSON.stringify(!checked));
+    }
+
+    onSearchMovies(pageName, !checked, searchText);
+    setChecked((checked) => !checked);
+  }
 
   return (
-    <form className="search-form" action="#" name={name} onSubmit={onSubmit}>
-      <fieldset className="search-form__input-fieldset">
-        <input className="search-form__input" type="text" name="movies" placeholder="Фильм" required />
-        <button type="submit" className="search-form__submit-btn">Поиск</button>
-      </fieldset>
-      <fieldset className="search-form__checkbox-fieldset">
-        <label className="search-form__checkbox-label">
-          <input type="checkbox" name="short-films" className="search-form__checkbox" />
-          <span className="search-form__pseudo-item"></span>
-          <span className="search-form__label-text">Короткометражки</span>
-        </label>
-      </fieldset>
-    </form>
+    <ContainerWrapper className={"container-wrapper__color_black"}>
+      <form className="search-form" action="#" name={`${pageName}-form`} onSubmit={onSubmit}>
+        <fieldset className="search-form__input-fieldset">
+          <input className="search-form__input" type="text" name="movies" placeholder="Фильм" value={searchText ? searchText : ''} onChange={handleChangeSearchText}/>
+          <button type="submit" className="search-form__submit-btn">Поиск</button>
+        </fieldset>
+        <span className="search-form__error-text">{errorMessage}</span>
+        <fieldset className="search-form__checkbox-fieldset">
+          <label className="search-form__checkbox-label">
+            <input type="checkbox" name="short-movies" className="search-form__checkbox" checked={checked} onChange={handleChangeCheckbox} />
+            <span className="search-form__pseudo-item"></span>
+            <span className="search-form__label-text">Короткометражки</span>
+          </label>
+        </fieldset>
+      </form>
+    </ContainerWrapper>
   );
 }
 

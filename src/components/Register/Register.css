@@ -66,7 +66,7 @@
 
 .register__fieldset {
   box-sizing: border-box;
-  margin: 0 0 20px;
+  margin: 0;
   padding: 0;
   border-width: 0;
   flex-grow: 1;
@@ -74,7 +74,7 @@
 
 @media screen and (min-width: 768px) {
   .register__fieldset {
-    margin-bottom: 70px;
+    /* margin-bottom: 70px; */
   }
 }
 
@@ -100,7 +100,13 @@
   border-radius: 8px;
 }
 
+.register__input:focus {
+  outline: none;
+  border: 1px solid #fff;
+}
+
 .register__input_type_error {
+  border: 1px solid #EE3465;
   color: #EE3465;
 }
 
@@ -109,6 +115,25 @@
   font-size: 10px;
   line-height: 11px;
   min-height: 11px;
+  color: #EE3465;
+}
+
+.register__btn-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 115px;
+}
+
+.register__server-message {
+  font-size: 10px;
+  line-height: 12px;
+  color: #3DDC84;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.register__server-message_type_error {
   color: #EE3465;
 }
 
@@ -137,6 +162,11 @@
     font-size: 14px;
     line-height: 17px;
   }
+}
+
+.register__submit-btn_disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
 }
 
 .register__footnote {

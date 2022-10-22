@@ -1,0 +1,41 @@
+.info-tooltip__status-image {
+  margin: 26px  auto 32px;
+  width: 120px;
+  height: 120px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@media screen and (max-width: 767px) {
+  .info-tooltip__status-image {
+    margin-top: 23px;
+    margin-bottom: 41px;
+  }
+}
+
+.info-tooltip__status-image_type_success {
+  background-image: url(../../../../images/success.svg);
+}
+
+.info-tooltip__status-image_type_error {
+  background-image: url(../../../../images/unsuccess.svg);
+}
+
+.info-tooltip__message {
+  margin: 0;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  color: #000;
+  padding-bottom: 24px;
+}
+
+@media screen and (max-width: 767px) {
+  .info-tooltip__message {
+    font-size: 20px;
+    line-height: 24px;
+    padding-bottom: 25px;
+  }
+}
+

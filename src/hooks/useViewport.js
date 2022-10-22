@@ -4,7 +4,13 @@ const useViewport = () => {
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
-    const handleWindowResize = () => setWidth(window.innerWidth);
+    const handleWindowResize = () => {
+      let timeOutFunction;
+      clearTimeout(timeOutFunction);
+      timeOutFunction = setTimeout(() => {
+        setWidth(window.innerWidth);
+      }, 500);
+    };
     window.addEventListener("resize", handleWindowResize);
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);

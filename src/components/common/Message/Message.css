@@ -1,0 +1,21 @@
+.message {
+  box-sizing: border-box;
+  min-width: 320px;
+  max-width: 1280px;
+  text-align: center;
+  line-height: 2;
+  color: #EE3465;
+  padding: 0 14px;
+}
+
+@media screen and (min-width: 768px) {
+  .message {
+    padding: 0 30px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .message {
+    padding: 0 70px;
+  }
+}

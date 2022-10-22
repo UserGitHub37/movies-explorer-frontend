@@ -1,85 +1,168 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState, useContext, useRef } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import useFormWithValidation from '../../hooks/useFormWithValidation';
 
 import ContainerWrapper from '../common/ContainerWrapper/ContainerWrapper';
-
+import { nameRegExp, emailRegExp } from '../../utils/constants';
 import './Profile.css';
 
-function Profile () {
+function Profile ({ onSignOut, onUpdateUser, serverMessage }) {
+  const currentUser = useContext(CurrentUserContext);
+  const formRef = useRef();
 
-  const navigate = useNavigate();
+  const {
+    values,
+    errors,
+    isValid,
+    handleChange,
+    resetForm,
+  } = useFormWithValidation();
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [ editMode, setEditMode ] = useState(false);
 
-  React.useEffect(() => {
-    setName('');
-    setEmail('');
+useEffect(() => {
+  setEditMode(false);
+}, [currentUser])
+
+  useEffect(() => {
+    const form = formRef.current;
+    function disableInputHints (e) {
+      e.preventDefault();
+    }
+    form.addEventListener('invalid', disableInputHints, true);
+    return () => form.removeEventListener('invalid', disableInputHints);
   }, []);
 
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
+  useEffect(() => {
+    resetForm({
+      username: currentUser.name,
+      email: currentUser.email,
+  })
+}, []);
 
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
-  }
-
-  function onSubmit (e) {
+  function onSubmit(e) {
     e.preventDefault();
-    navigate('/movies');
+    if (
+      isValid &&
+      (currentUser.name !== values.username ||
+        currentUser.email !== values.email)
+    ) {
+      onUpdateUser({
+        name: values.username,
+        email: values.email,
+      });
+    }
   }
+
+  function handleEditModeEntry () {
+    setEditMode(true);
+  }
+
 
   return (
     <ContainerWrapper
       className={"container-wrapper__color_black container-wrapper__type_grow"}
     >
       <div className="profile">
-        <h1 className="profile__title">Привет, Виталий!</h1>
+        <h1 className="profile__title">{`Привет, ${currentUser.name}!`}</h1>
 
         <form
+          id="profile"
           className="profile__form"
           action="#"
           name="profile"
           onSubmit={onSubmit}
+          ref={formRef}
         >
           <fieldset className="profile__fieldset">
             <label className="profile__input-label">
               <p className="profile__subtitle">Имя</p>
               <input
-                className="profile__input profile__input_field_name"
+                className={`profile__input profile__input_field_name${
+                  errors.username ? " profile__input_type_error" : ""
+                }`}
                 id="profile-name-input"
                 type="text"
-                name="profileName"
-                placeholder="Виталий"
+                name="username"
+                placeholder="Введите имя"
                 minLength="2"
                 maxLength="30"
+                value={values.username ? values.username : ""}
+                onChange={handleChange}
                 required
-                value={name ? name : ""}
-                onChange={handleChangeName}
+                pattern={nameRegExp}
+                disabled={!editMode}
               />
-              <span className="profile__error-message profile-name-input-error"></span>
+              <span className="profile__error-message profile-name-input-error">
+                {errors.username ? errors.username : ""}
+              </span>
             </label>
             <label className="profile__input-label">
               <p className="profile__subtitle">E-mail</p>
               <input
-                className="profile__input profile__input_field_email"
+                className={`profile__input${
+                  errors.email ? " profile__input_type_error" : ""
+                }`}
                 id="profile-email-input"
                 type="email"
-                name="profileEmail"
-                placeholder="pochta@yandex.ru"
-                minLength='5'
-                maxLength='40'
+                name="email"
+                placeholder="Введите E-mail"
+                minLength="5"
+                maxLength="40"
+                value={values.email ? values.email : ""}
+                onChange={handleChange}
                 required
-                value={email ? email : ""}
-                onChange={handleChangeEmail}
+                pattern={emailRegExp}
+                disabled={!editMode}
               />
-              <span className="profile__error-message profile-email-input-error"></span>
+              <span className="profile__error-message profile-email-input-error">
+                {errors.email ? errors.email : ""}
+              </span>
             </label>
           </fieldset>
-          <button type="submit" className="profile__submit-btn">Редактировать</button>
         </form>
-        <button type="button" className="profile__logout-btn">Выйти из аккаунта</button>
+        <div className="profile__btn-wrap">
+          <span
+            className={`profile__server-message${
+              serverMessage.isError ? " profile__server-message_type_error" : ""
+            }`}
+          >
+            {serverMessage.text}
+          </span>
+          {editMode && (
+            <button
+              type="submit"
+              className={`profile__submit-btn${
+                isValid &&
+                (currentUser.name !== values.username ||
+                  currentUser.email !== values.email)
+                  ? ""
+                  : " profile__submit-btn_disabled"
+              }`}
+              form="profile"
+            >
+              Сохранить
+            </button>
+          )}
+          {!editMode && (
+            <button
+              type="button"
+              className="profile__edit-btn"
+              onClick={handleEditModeEntry}
+            >
+              Редактировать
+            </button>
+          )}
+          {!editMode && (
+            <button
+              type="button"
+              className="profile__logout-btn"
+              onClick={onSignOut}
+            >
+              Выйти из аккаунта
+            </button>
+          )}
+        </div>
       </div>
     </ContainerWrapper>
   );

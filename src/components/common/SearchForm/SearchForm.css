@@ -24,7 +24,7 @@
   box-sizing: border-box;
   height: 56px;
   padding: 0 4.5px;
-  margin: 0 0 30px;
+  margin: 0;
   border: 1.5px solid rgba(170, 170, 170, 0.2);
   border-radius: 8px;
 }
@@ -33,7 +33,6 @@
   .search-form__input-fieldset {
     height: 72px;
     padding: 0 10px;
-    margin-bottom: 26px;
   }
 }
 
@@ -91,6 +90,23 @@
   .search-form__submit-btn {
     width: 100px;
     height: 52px;
+  }
+}
+
+.search-form__error-text {
+  display: block;
+  box-sizing: border-box;
+  min-height: 29px;
+  padding: 3px 10px;
+  font-size: 10px;
+  line-height: 11px;
+  color: #EE3465;
+}
+
+@media screen and (min-width: 768px) {
+  .search-form__error-text {
+    min-height: 26px;
+    padding: 3px 25px;
   }
 }
 

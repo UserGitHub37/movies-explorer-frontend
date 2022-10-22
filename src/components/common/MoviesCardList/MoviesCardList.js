@@ -1,21 +1,30 @@
 import { useState, useEffect } from 'react';
-import { cards } from '../../../utils/movies'
 import useViewport from '../../../hooks/useViewport';
 import Card from '../MoviesCard/MoviesCard';
+import ContainerWrapper from '../ContainerWrapper/ContainerWrapper';
 import './MoviesCardList.css';
 
-function MoviesCardList ({ isMoreButton = false }) {
+function MoviesCardList ({ cards, onLikeCard, onRemoveCard, savedMovies, pageName, nameIdCard }) {
   const { width } = useViewport();
 
+  const [isMoreButton, setMoreButton] = useState(false);
   const [numberOfCards, setNumberOfCards] = useState(5);
 
-  useEffect(() => {
-    const breakpoint = {
-      sm: 630,
-      md: 930,
-      lg: 1280,
-    };
+  const breakpoint = {
+    sm: 630,
+    md: 930,
+    lg: 1280,
+  };
 
+  useEffect(() => {
+    if (pageName === 'movies') {
+      cards.length > numberOfCards ? setMoreButton(true) : setMoreButton(false);
+    } else {
+      setMoreButton(false);
+    }
+  }, [cards.length, pageName, numberOfCards])
+
+  useEffect(() => {
     if (width < breakpoint.sm && cards.length >= 5) {
       setNumberOfCards(5);
     } else if (width < breakpoint.md && cards.length >= 8) {
@@ -27,21 +36,40 @@ function MoviesCardList ({ isMoreButton = false }) {
     } else {
       setNumberOfCards(cards.length);
     }
+  }, [width, cards.length, breakpoint.sm, breakpoint.md, breakpoint.lg])
 
-  }, [width])
+  function handleClickMoreButton () {
+    setNumberOfCards((amount) => {
+      if (width < breakpoint.sm) {
+        return amount + 5;
+      } else if (width < breakpoint.md) {
+        return amount + 2;
+      } else if (width < breakpoint.lg) {
+        return amount + 3;
+      } else if (width >= breakpoint.lg) {
+        return amount + 4;
+      }
+    })
+  }
 
   return (
-    <section className="card-list" aria-label="Фильмы">
-      <ul className="card-list__wrapper">
-        {cards.slice(0, numberOfCards).map((card) => (
-          <Card
-            key={card.id}
-            card={card}
-          />
-        ))}
-      </ul>
-      {isMoreButton && <button className="card-list__more-button">Ещё</button>}
-    </section>
+    <ContainerWrapper className={"container-wrapper__color_black container-wrapper__type_grow"}>
+      <section className="card-list" aria-label="Фильмы">
+        <ul className="card-list__wrapper">
+          {cards.length > 0 && (((pageName === 'saved-movies') && cards) || cards.slice(0, numberOfCards)).map((card) => (
+            <Card
+              key={card[nameIdCard]}
+              card={card}
+              onLikeCard={onLikeCard}
+              onRemoveCard={onRemoveCard}
+              savedMovies={savedMovies}
+              pageName={pageName}
+            />
+          ))}
+        </ul>
+        {isMoreButton && <button className="card-list__more-button" onClick={handleClickMoreButton}>Ещё</button>}
+      </section>
+    </ContainerWrapper>
   );
 }
 
