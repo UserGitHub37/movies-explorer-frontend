@@ -77,6 +77,8 @@ function Register ({ onRegister, serverMessage }) {
                 type="text"
                 name="username"
                 placeholder="Введите имя"
+                minLength="2"
+                maxLength="30"
                 value={values.username ? values.username : ""}
                 onChange={handleChange}
                 required

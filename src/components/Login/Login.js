@@ -95,8 +95,6 @@ function Login ({ onLogin, serverMessage }) {
                 type="password"
                 name="password"
                 placeholder="Введите пароль"
-                minLength="5"
-                maxLength="50"
                 value={values.password ? values.password : ""}
                 onChange={handleChange}
                 required
