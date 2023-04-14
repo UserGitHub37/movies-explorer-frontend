@@ -33,7 +33,7 @@ Movies Explorer - интерактивный сайт с регистрацие�
 
 ##### Ссылки:
 
-Ссылка на сайт https://movies.thirtyseven.nomoredomains.sbs
+Ссылка на сайт https://movies.tw1.ru
 
 Ссылка на бэкенд проекта: https://github.com/UserGitHub37/movies-explorer-api
 

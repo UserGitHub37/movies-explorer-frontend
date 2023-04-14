@@ -1,6 +1,6 @@
 //Мой API с регистрацией, авторизацией и сохраненными фильмами пользователей
 // export const MAIN_API_BASE_URL = 'http://localhost:3000/';
-export const MAIN_API_BASE_URL = 'https://api.movies.thirtyseven.nomoredomains.sbs/';
+export const MAIN_API_BASE_URL = 'https://api-movies.tw1.ru/';
 
 
 //Сторонний API с базой фильмов
